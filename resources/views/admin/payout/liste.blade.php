@@ -36,7 +36,7 @@
                                 </div>
                                 @endif
 
-                                @if (session('status'))
+                                {{-- @if (session('status'))
                                     <div class="row">
                                     <div class="col-xxl-2 col-lg-8 col-md-offset-1">
                                         <div class="alert alert-success alert-dismissible">
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 @if (session()->has('failures'))
 

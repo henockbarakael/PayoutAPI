@@ -60,7 +60,7 @@ class TransactionsController extends Controller
             return back()->withFailures($import->failures());
         }
 
-
+        Toastr::success("Records successful imported!",'Success');
         return back()->withStatus('Import in queue, we will send notification after import finished.');
 
     }
