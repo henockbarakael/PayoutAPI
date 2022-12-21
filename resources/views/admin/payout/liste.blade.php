@@ -178,7 +178,7 @@
                             </table>
 
                         @endif
-                        <table class="display table table-bordered myshadow" id="fixed-header" style="width:100%">
+                        <table class="display table table-bordered myshadow table_reload" id="fixed-header" style="width:100%">
                             <thead class="table-light text-muted">
                                 <tr>
                                     <th scope="col" style="width: 50px;">
@@ -312,39 +312,44 @@
             });
             /* Fin Multiple Paiement */
           
-                $('.delete-all').on('click', function(e) {
-var idsArr = [];  
-$(".checkbox:checked").each(function() {  
-idsArr.push($(this).attr('data-id'));
-});  
-if(idsArr.length <=0)  
-{  
-alert("Please select atleast one record to delete.");  
-}  else {  
-if(confirm("Are you sure, you want to delete the selected transactions?")){  
-var strIds = idsArr.join(","); 
-$.ajax({
-url: "{{ route('admin.payout.delete.multiple') }}",
-type: 'DELETE',
-headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-data: 'ids='+strIds,
-success: function (data) {
-if (data['status']==true) {
-$(".checkbox:checked").each(function() {  
-$(this).parents("tr").remove();
-});
-alert(data['message']);
-} else {
-alert('Whoops Something went wrong!!');
-}
-},
-error: function (data) {
-alert(data.responseText);
-}
-});
-}  
-}  
-});
+            $('.delete-all').on('click', function(e) {
+                var idsArr = [];  
+                $(".checkbox:checked").each(function() {  
+                    idsArr.push($(this).attr('data-id'));
+                });  
+                if(idsArr.length <=0)  {  
+                    alert("Please select atleast one record to delete.");  
+                }  
+                else {  
+                    if(confirm("Are you sure, you want to delete the selected transactions?")){  
+                        var strIds = idsArr.join(","); 
+                        $.ajax({
+                            url: "{{ route('admin.payout.delete.multiple') }}",
+                            type: 'DELETE',
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data: 'ids='+strIds,
+                            success: function (data) {
+                                if (data['status']==true) {
+                                    $(".checkbox:checked").each(function() {  
+                                        $(this).parents("tr").remove();
+                                    });
+                                    toastr.success(data['message'], 'Success Alert', {
+                                        timeOut: 600
+                                    });
+                                    // location.reload();
+                                    $('.table_reload').load(document.URL +  ' .table');
+                                } 
+                                else {
+                                    alert('Whoops Something went wrong!!');
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }  
+                }  
+            });
             $('[data-toggle=confirmation]').confirmation({
                 rootSelector: '[data-toggle=confirmation]',
                 onConfirm: function (event, element) {
