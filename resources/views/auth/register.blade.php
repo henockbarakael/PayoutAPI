@@ -57,7 +57,7 @@
                                 <div class="mt-4">
                                     <form class="needs-validation" method="POST" action="{{route('register')}}">
                                         @csrf
-                                        {{-- <div class="mb-3">
+                                        <div class="mb-3">
                                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" placeholder="Enter email address" required>
                                             @error('email')
@@ -65,7 +65,7 @@
                                                 Please enter email
                                             </div>
                                             @enderror
-                                        </div> --}}
+                                        </div>
                                         <div class="mb-3">
                                             <label for="firstname" class="form-label">Firstname <span class="text-danger">*</span></label>
                                             <input name="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" id="firstname" placeholder="Enter firstname" required>
