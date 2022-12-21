@@ -36,15 +36,45 @@
                                 </div>
                                 @endif
 
-                                @if (Session::has('success'))
+                                @if (session('status'))
                                     <div class="row">
                                     <div class="col-xxl-2 col-lg-8 col-md-offset-1">
                                         <div class="alert alert-success alert-dismissible">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <h5>{!! Session::get('success') !!}</h5>   
+                                            <h5>{!! session('status') !!}</h5>   
                                         </div>
                                     </div>
                                     </div>
+                                @endif
+
+                                @if (session()->has('failures'))
+
+                                    <table class="table table-danger">
+                                        <tr>
+                                            <th>Row</th>
+                                            <th>Attribute</th>
+                                            <th>Errors</th>
+                                            <th>Value</th>
+                                        </tr>
+
+                                        @foreach (session()->get('failures') as $validation)
+                                            <tr>
+                                                <td>{{ $validation->row() }}</td>
+                                                <td>{{ $validation->attribute() }}</td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($validation->errors() as $e)
+                                                            <li>{{ $e }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    {{ $validation->values()[$validation->attribute()] }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+
                                 @endif
   
                                 <div class="row g-3">
@@ -84,6 +114,39 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if (session()->has('failures'))
+
+                            <table class="display table table-danger table-bordered myshadow" id="fixed-header" style="width:100%">
+                                <thead class="table-light text-muted">
+                                    <tr>
+                                        <th>Row</th>
+                                        <th>Attribute</th>
+                                        <th>Errors</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach (session()->get('failures') as $validation)
+                                    <tr>
+                                        <td>{{ $validation->row() }}</td>
+                                        <td>{{ $validation->attribute() }}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach ($validation->errors() as $e)
+                                                    <li>{{ $e }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            {{ $validation->values()[$validation->attribute()] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                        @endif
                         <table class="display table table-bordered myshadow" id="fixed-header" style="width:100%">
                             <thead class="table-light text-muted">
                                 <tr>

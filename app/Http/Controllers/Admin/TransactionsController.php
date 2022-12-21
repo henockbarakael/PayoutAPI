@@ -50,10 +50,18 @@ class TransactionsController extends Controller
 
 
     public function process_payout(Request $request){
-        
-        Excel::import(new PayoutsImport,request()->file('file'));
-             
-        return back()->with('success', 'User Imported Successfully.');
+
+        $file = $request->file('file')->store('import');
+
+        $import = new PayoutsImport;
+        $import->import($file);
+
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+
+        return back()->withStatus('Import in queue, we will send notification after import finished.');
 
     }
 
