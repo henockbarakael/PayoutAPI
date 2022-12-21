@@ -3,6 +3,33 @@
 @section('page','TICKETS')
 @section('page-inner','Tickets list')
 @section('content')
+<style type="text/css">
+    .loading {
+        z-index: 20;
+        position: absolute;
+        top: 0;
+        left:-5px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+    }
+    .loading-content {
+        position: absolute;
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        top: 40%;
+        left:50%;
+        animation: spin 2s linear infinite;
+        }
+          
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+</style>
 {!! Toastr::message() !!}
 <div class="page-content">
     <div class="container-fluid">
@@ -10,6 +37,10 @@
         <!-- start page title -->
         @include('layouts.page-title')
         <!-- end page title -->
+
+        <section id="loading">
+            <div id="loading-content"></div>
+        </section>
 
         {{-- <div class="alert alert-danger" role="alert">
             This is <strong>Datatable</strong> page in wihch we have used <b>jQuery</b> with cnd link!
@@ -204,6 +235,29 @@
     </div>
 </div>
     @section('script')
+    <script type="text/javascript">
+  
+        /*------------------------------------------
+        --------------------------------------------
+        Add Loading When fire Ajax Request
+        --------------------------------------------
+        --------------------------------------------*/
+        $(document).ajaxStart(function() {
+            $('#loading').addClass('loading');
+            $('#loading-content').addClass('loading-content');
+        });
+      
+        /*------------------------------------------
+        --------------------------------------------
+        Remove Loading When fire Ajax Request
+        --------------------------------------------
+        --------------------------------------------*/
+        $(document).ajaxStop(function() {
+            $('#loading').removeClass('loading');
+            $('#loading-content').removeClass('loading-content');
+        });
+          
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#check_all').on('click', function(e) {
