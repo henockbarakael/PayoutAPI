@@ -297,7 +297,11 @@
                         data: 'ids='+strIds,
                         success: function (data) {
                             if (data['status']==true) {
-                                alert(data['message']);
+                                toastr.success(data['message'], 'Success Alert', {
+                                        timeOut: 600
+                                });
+                                // location.reload();
+                                $('.table_reload').load(document.URL +  ' .table');
                             } 
                             else {
                                 alert('Whoops Something went wrong!!');

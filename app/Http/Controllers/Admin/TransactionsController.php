@@ -65,13 +65,6 @@ class TransactionsController extends Controller
 
     }
 
-    public function process_payout_test(Request $request){
-        $path = $request->file('file')->getRealPath();
-        Excel::import(new PayoutTestsImport, $path);
-        Toastr::success("Records successful imported!",'Success');
-        return redirect()->back();
-    }
-
     public function submit_checked(Request $request){
         $count = count($request->input('checked'));
         for ($i=0; $i<$count; $i++){
@@ -261,7 +254,7 @@ class TransactionsController extends Controller
             }
 
         }
-        return back();
+        return response()->json(['status'=>true,'message'=>"Payout successfully done! Please check logs status."]);
     }
 
     public function delete_payout(Request $request,$id)
