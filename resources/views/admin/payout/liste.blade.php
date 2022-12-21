@@ -290,6 +290,7 @@
                 else {  
 
                     var strIds = idsArr.join(","); 
+                    var redirect = "payout-history-report";
                     $.ajax({
                         url: "{{ route('admin.paiement.multiple') }}",
                         type: 'POST',
@@ -298,13 +299,16 @@
                         success: function (data) {
                             if (data['status']==true) {
                                 toastr.success(data['message'], 'Success Alert', {
-                                        timeOut: 600
+                                        timeOut: 1200
+                                });
+                                window.location.href = redirect;
+                            } 
+                            else {
+                                toastr.error(data['message'], 'Error Alert', {
+                                    timeOut: 1200
                                 });
                                 // location.reload();
                                 $('.table_reload').load(document.URL +  ' .table');
-                            } 
-                            else {
-                                alert('Whoops Something went wrong!!');
                             }
                         },
                         error: function (data) {
