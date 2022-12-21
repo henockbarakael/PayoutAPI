@@ -66,7 +66,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHisto
     Route::get('payout-test', [App\Http\Controllers\Admin\TransactionsController::class, 'payout_test'])->name('admin.payout.test');
     Route::get('payout-history-report', [App\Http\Controllers\Admin\TransactionsController::class, 'payout_logs'])->name('admin.payout.history');
     Route::get('payout-history-report-test', [App\Http\Controllers\Admin\TransactionsController::class, 'payout_test_logs'])->name('admin.payout.history.test');
-    Route::post('import', [App\Http\Controllers\Admin\TransactionsController::class, 'process_payout'])->name('admin.import');
+    Route::post('payout', [App\Http\Controllers\Admin\TransactionsController::class, 'process_payout'])->name('admin.import');
     Route::post('import_test', [App\Http\Controllers\Admin\TransactionsController::class, 'process_payout_test'])->name('admin.import.test');
     Route::post('submit_checked', [App\Http\Controllers\Admin\TransactionsController::class, 'submit_checked'])->name('admin.submit_checked');
     Route::post('paiement/{id}', [App\Http\Controllers\Admin\TransactionsController::class, 'paiement'])->name('admin.paiement');

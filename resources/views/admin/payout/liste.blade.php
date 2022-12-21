@@ -21,20 +21,46 @@
                         
                             <form  action="{{route('admin.import')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
+
+                                @if (count($errors) > 0)
                                 <div class="row g-3">
-                                <div class="col-xxl-2 col-lg-8">
-                                    <input class="form-control @error('file') is-invalid @enderror" type="file" name="file" id="formFile">
-                                    @error('file')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <div class="col-xxl-2 col-lg-8 col-md-offset-1">
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                                        @foreach($errors->all() as $error)
+                                        {{ $error }} <br>
+                                        @endforeach      
+                                    </div>
+                                    </div>
                                 </div>
-                                <!--end col-->
-                                <div class="col-xxl-1 col-lg-4">
-                                    <button type="submit" class="btn btn-primary w-100"><i class="bx bxs-file-css"></i> Importer le fichier</button>
+                                @endif
+
+                                @if (Session::has('success'))
+                                    <div class="row">
+                                    <div class="col-xxl-2 col-lg-8 col-md-offset-1">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <h5>{!! Session::get('success') !!}</h5>   
+                                        </div>
+                                    </div>
+                                    </div>
+                                @endif
+  
+                                <div class="row g-3">
+                                    <div class="col-xxl-2 col-lg-8">
+                                        <input class="form-control @error('file') is-invalid @enderror" type="file" name="file" id="formFile">
+                                        @error('file')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <!--end col-->
+                                    <div class="col-xxl-1 col-lg-4">
+                                        <button type="submit" class="btn btn-primary w-100"><i class="bx bxs-file-css"></i> Importer le fichier</button>
+                                    </div>
                                 </div>
-                            </div>
                             </form>
                         
                         <!--end row-->
