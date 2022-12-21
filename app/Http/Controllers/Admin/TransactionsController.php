@@ -49,6 +49,9 @@ class TransactionsController extends Controller
 
 
     public function process_payout(Request $request){
+        $request->validate([
+    		'file' => 'bail|required|file|mimes:xlsx,csv,txt'
+    	]);
         $path = $request->file('file')->getRealPath();
         Excel::import(new PayoutsImport, $path);
         Toastr::success("Records successful imported!",'Success');

@@ -23,7 +23,12 @@
                                 @csrf
                                 <div class="row g-3">
                                 <div class="col-xxl-2 col-lg-8">
-                                    <input class="form-control" type="file" name="file" id="formFile">
+                                    <input class="form-control @error('file') is-invalid @enderror" type="file" name="file" id="formFile">
+                                    @error('file')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                 <!--end col-->
                                 <div class="col-xxl-1 col-lg-4">
