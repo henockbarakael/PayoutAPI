@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Liste - Marchand')
+@section('title','Payout report')
 @section('page','PAYOUT REPORT')
 @section('page-inner','Payout Logs')
 @section('content')
