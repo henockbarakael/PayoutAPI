@@ -38,28 +38,17 @@
                 </li>
                 <!-- end Dashboard Menu -->
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Accounting and Finance</span></li>
+                <li class="menu-title"><i class="mdi-desktop-mac-dashboard"></i> <span data-key="t-pages">Accounting and Finance</span></li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarPayout" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="mdi mdi-format-list-bulleted"></i> <span data-key="t-payout">Payment gateway</span>
+                    <a class="nav-link menu-link" href="{{route('admin.payout')}}">
+                        <i class="mdi-credit-card-sync"></i> <span data-key="t-widgets">Payment Gateway</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarPayout">
-                        <ul class="nav nav-sm flex-column">
-                            {{-- <li class="nav-item">
-                                <a href="{{route('admin.payout.test')}}" class="nav-link" data-key="t-test"> Test</a>
-                            </li> --}}
-                            <li class="nav-item">
-                                <a href="{{route('admin.payout')}}" class="nav-link" data-key="t-payout"> List all payouts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('admin.payout.history')}}" class="nav-link" data-key="t-payout"> Payout history report</a>
-                            </li>
-
-                            {{-- <li class="nav-item">
-                                <a href="{{route('admin.payout.history.test')}}" class="nav-link" data-key="t-payout"> Payout history report test</a>
-                            </li> --}}
-                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('admin.payout.history')}}">
+                        <i class="mdi-credit-card-sync"></i> <span data-key="t-widgets">Payment Report</span>
+                    </a>
                 </li>
             </ul>
         </div>
