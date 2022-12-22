@@ -29,12 +29,11 @@
                             <thead class="table-light text-muted">
                                 <tr>
                                     <th class="text-left">#</th>
-                                    <th class="text-left">Destination account</th>
+                                    <th class="text-left">Phone number</th>
                                     <th class="text-center">Amount</th>
                                     <th class="text-center">Currency</th>
-                                    <th class="text-left">Channel</th>
-                                    <th class="text-left">Telco Ref.</th>
-                                    <th class="text-left">Switch Ref.</th>
+                                    <th class="text-left">Operator</th>
+                                    <th class="text-left">Reference</th>
                                     <th class="text-left">Status</th>
                                     <th class="text-left">Created_at</th>
                                 </tr>
@@ -44,10 +43,9 @@
                                 <tr>
                                     <td class="text-left">{{ $item->id}}</td>
                                     <td class="text-left">{{ $item->destination_account}}</td>
-                                    <td class="text-center">{{ $item->amount }}</td>
-                                    <td class="text-center">{{ $item->currency }}</td>
-                                    <td class="text-center">{{ $item->debit_channel }}</td>
-                                    <td class="text-left">{{ $item->financial_institution_transaction_id }}</td>
+                                    <td class="text-left">{{ $item->amount }}</td>
+                                    <td class="text-left">{{ $item->currency }}</td>
+                                    <td class="text-left">{{ $item->debit_channel }}</td>
                                     <td class="text-left">{{ $item->trans_id }}</td>
                                     <td class="text-left">{{ $item->status }}</td>
                                     <td class="text-left">{{ $item->created_at }}</td>
