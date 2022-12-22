@@ -32,7 +32,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('merchant.dashboard')}}">
+                    <a class="nav-link menu-link" href="{{route('admin.dashboard')}}">
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
                 </li>

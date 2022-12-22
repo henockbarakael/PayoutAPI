@@ -6,11 +6,10 @@
     <meta charset="utf-8" />
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Freshpay Airtime" name="description" />
+    <meta content="Payout Gateway System Cd." name="description" />
     <meta content="Freshpay Bakery" name="Henock BARAKAEL" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/icon1.png') }}">
-
     <!-- Layout config Js -->
     <script src="{{ asset('assets/js/layout.js') }}"></script>
     <!-- Bootstrap Css -->
@@ -44,7 +43,7 @@
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0">&copy;
-                                <script>document.write(new Date().getFullYear())</script> 2022 Emala Fintech. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a class="text-white" href="https://barawebdesign.com" target="_blank">Barawebdesign</a>
+                                <script>document.write(new Date().getFullYear())</script> © Freshpay Airtime V1.0. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a class="text-white" href="https://barawebdesign.com" target="_blank">Barawebdesign</a>
                             </p>
                         </div>
                     </div>
