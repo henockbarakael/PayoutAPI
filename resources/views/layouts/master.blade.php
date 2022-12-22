@@ -89,7 +89,6 @@
     <!-- projects js -->
     <script src="{{ asset('assets/js/pages/dashboard-projects.init.js') }}"></script>
     <!-- App js -->
-    <script src="{{ asset('assets/js/pages/materialdesign.list.js') }}" defer></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <!-- Marketplace init -->
     <script src="{{ asset('assets/js/pages/dashboard-nft.init.js') }}"></script>

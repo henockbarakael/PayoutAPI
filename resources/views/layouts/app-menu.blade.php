@@ -38,8 +38,8 @@
                 </li>
                 <!-- end Dashboard Menu -->
 
-                <li class="menu-title"><i class="mdi-desktop-mac-dashboard"></i> <span data-key="t-pages">Accounting and Finance</span></li>
-
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Accounting and Finance</span></li>
+                
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout')}}">
                         <i class="mdi-credit-card-sync"></i> <span data-key="t-widgets">Payment Gateway</span>
