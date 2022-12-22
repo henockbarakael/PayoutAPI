@@ -41,7 +41,7 @@
                             <tbody>
                                 @foreach ($logs as $key => $item)
                                 <tr>
-                                    <td class="text-left">{{ $item->id}}</td>
+                                    <td class="text-left">{{ ++$key}}</td>
                                     <td class="text-left">{{ $item->destination_account}}</td>
                                     <td class="text-left">{{ $item->amount." ".$item->currency }}</td>
                                     {{-- <td class="text-left">{{ $item->currency }}</td> --}}
