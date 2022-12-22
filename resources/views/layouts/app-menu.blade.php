@@ -33,7 +33,7 @@
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.dashboard')}}">
-                        <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboard</span>
+                        <i class="ri-dashboard-line"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
                 </li>
                 <!-- end Dashboard Menu -->
@@ -42,12 +42,12 @@
                 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout')}}">
-                        <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-widgets">Payment Gateway</span>
+                        <i class="ri-secure-payment-fill"></i> <span data-key="t-widgets">Payment Gateway</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout.history')}}">
-                        <i class="mdi mdi-chart-donut"></i> <span data-key="t-widgets">Payment Report</span>
+                        <i class="ri-file-history-fill"></i> <span data-key="t-widgets">Payment Report</span>
                     </a>
                 </li>
             </ul>
