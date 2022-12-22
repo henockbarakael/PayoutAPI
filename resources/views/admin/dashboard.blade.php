@@ -15,8 +15,8 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <div class="flex-grow-1">
-                            <h4>4751</h4>
-                            <h6 class="text-muted fs-13 mb-0">ICOs Published</h6>
+                            <h4>{{$file_imported}}</h4>
+                            <h6 class="text-muted fs-13 mb-0">Total transaction</h6>
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-warning text-warning fs-22 rounded">
@@ -31,8 +31,8 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <div class="flex-grow-1">
-                            <h4>3423</h4>
-                            <h6 class="text-muted fs-13 mb-0">Active ICOs</h6>
+                            <h4>{{$log_success}}</h4>
+                            <h6 class="text-muted fs-13 mb-0">Success payments</h6>
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-success text-success fs-22 rounded">
@@ -47,8 +47,8 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <div class="flex-grow-1">
-                            <h4>354</h4>
-                            <h6 class="text-muted fs-13 mb-0">ICOs Trading</h6>
+                            <h4>{{$log_failed}}</h4>
+                            <h6 class="text-muted fs-13 mb-0">Failed payments</h6>
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-info text-info fs-22 rounded">
@@ -63,8 +63,8 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <div class="flex-grow-1">
-                            <h4>2762</h4>
-                            <h6 class="text-muted fs-13 mb-0">Funded ICOs</h6>
+                            <h4>{{$log_pending}}</h4>
+                            <h6 class="text-muted fs-13 mb-0">Pending payments</h6>
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-danger text-danger fs-22 rounded">
