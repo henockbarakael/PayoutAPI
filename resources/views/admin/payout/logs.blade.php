@@ -64,8 +64,8 @@
     @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
-            var d = new Date();
-            var n = d.getTime();
+            var today = new Date();
+            var n = today.getDate().toString()+(today.getMonth()+1)+today.getFullYear();
             $('#payout').DataTable({
                 scrollX: true,
                 dom:"Bfrtip",
