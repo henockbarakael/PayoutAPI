@@ -20,7 +20,7 @@
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-warning text-warning fs-22 rounded">
-                                <i class="ri-upload-2-line"></i>
+                                <i class="ri-bar-chart-fill"></i>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-success text-success fs-22 rounded">
-                                <i class="ri-remote-control-line"></i>
+                                <i class="ri-bar-chart-fill"></i>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-info text-info fs-22 rounded">
-                                <i class="ri-flashlight-fill"></i>
+                                <i class="ri-bar-chart-fill"></i>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="flex-shrink-0 avatar-sm">
                             <div class="avatar-title bg-soft-danger text-danger fs-22 rounded">
-                                <i class="ri-hand-coin-line"></i>
+                                <i class="ri-bar-chart-fill"></i>
                             </div>
                         </div>
                     </div>
