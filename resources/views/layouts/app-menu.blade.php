@@ -38,16 +38,16 @@
                 </li>
                 <!-- end Dashboard Menu -->
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Accounting and Finance</span></li>
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
                 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout')}}">
-                        <i class="mdi-credit-card-sync"></i> <span data-key="t-widgets">Payment Gateway</span>
+                        <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-widgets">Payment Gateway</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout.history')}}">
-                        <i class="mdi-credit-card-sync"></i> <span data-key="t-widgets">Payment Report</span>
+                        <i class="mdi mdi-chart-donut"></i> <span data-key="t-widgets">Payment Report</span>
                     </a>
                 </li>
             </ul>
