@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         {{-- <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%"> --}}
-                        <table class="table nowrap align-middle" id="example" style="width:100%">
+                        <table class="table nowrap align-middle" id="payout" style="width:100%">
                             <thead class="table-light text-muted">
                                 <tr>
                                     <th class="text-left">#</th>
@@ -62,5 +62,23 @@
     </div>
 </div>
     @section('script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#payout').DataTable({
+                scrollX: true,
+                dom:"Bfrtip",
+                buttons:["csv","excel","print","pdf"],
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All'],
+                ],
+                filename: function(){
+                    var d = new Date();
+                    var n = d.getTime();
+                    return 'Payout_report' + n;
+                },
+            });
+        });
+    </script>
     @endsection
 @endsection
