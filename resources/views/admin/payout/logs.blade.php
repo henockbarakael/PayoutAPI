@@ -35,6 +35,7 @@
                                     <th class="text-left">Telco Ref.</th>
                                     <th class="text-left">Switch Ref.</th>
                                     <th class="text-left">Status</th>
+                                    <th class="text-left">Created_at</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,7 @@
                                     <td class="text-left">{{ $item->financial_institution_transaction_id }}</td>
                                     <td class="text-left">{{ $item->trans_id }}</td>
                                     <td class="text-left">{{ $item->status }}</td>
+                                    <td class="text-left">{{ $item->created_at }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
