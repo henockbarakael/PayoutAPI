@@ -72,16 +72,16 @@
                 order: [[0, 'desc']],
                 buttons: [
                         {
-                        extend: 'csv',
-                        filename: 'Payout_report' + n
+                            extend: 'csv',
+                            filename: 'Payout_report_' + n
                         },
-                    {
-                        extend: 'excel',
-                        filename: 'Payout_report' + n
+                        {
+                            extend: 'excel',
+                            filename: 'Payout_report_' + n
                         },
-                    {
-                        extend: 'pdf',
-                        filename: 'Payout_report' + n
+                        {
+                            extend: 'pdf',
+                            filename: 'Payout_report_' + n
                         }
                     ],
                 lengthMenu: [
