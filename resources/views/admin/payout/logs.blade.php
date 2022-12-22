@@ -31,7 +31,7 @@
                                     <th class="text-left">#</th>
                                     <th class="text-left">Phone number</th>
                                     <th class="text-center">Amount</th>
-                                    <th class="text-center">Currency</th>
+                                    {{-- <th class="text-center">Currency</th> --}}
                                     <th class="text-left">Operator</th>
                                     <th class="text-left">Reference</th>
                                     <th class="text-left">Status</th>
@@ -43,8 +43,8 @@
                                 <tr>
                                     <td class="text-left">{{ $item->id}}</td>
                                     <td class="text-left">{{ $item->destination_account}}</td>
-                                    <td class="text-left">{{ $item->amount }}</td>
-                                    <td class="text-left">{{ $item->currency }}</td>
+                                    <td class="text-left">{{ $item->amount." ".$item->currency }}</td>
+                                    {{-- <td class="text-left">{{ $item->currency }}</td> --}}
                                     <td class="text-left">{{ $item->debit_channel }}</td>
                                     <td class="text-left">{{ $item->trans_id }}</td>
                                     <td class="text-left">{{ $item->status }}</td>
