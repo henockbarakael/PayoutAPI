@@ -64,19 +64,30 @@
     @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
+            var d = new Date();
+            var n = d.getTime();
             $('#payout').DataTable({
                 scrollX: true,
                 dom:"Bfrtip",
-                buttons:["csv","excel","print","pdf"],
+                order: [[0, 'desc']],
+                buttons: [
+                        {
+                        extend: 'csv',
+                        filename: 'Payout_report' + n
+                        },
+                    {
+                        extend: 'excel',
+                        filename: 'Payout_report' + n
+                        },
+                    {
+                        extend: 'pdf',
+                        filename: 'Payout_report' + n
+                        }
+                    ],
                 lengthMenu: [
                     [10, 25, 50, -1],
                     [10, 25, 50, 'All'],
                 ],
-                filename: function(){
-                    var d = new Date();
-                    var n = d.getTime();
-                    return 'Payout_report' + n;
-                },
             });
         });
     </script>
