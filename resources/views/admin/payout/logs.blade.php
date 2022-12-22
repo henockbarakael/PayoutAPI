@@ -24,7 +24,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="display table table-bordered table-responsive" id="buttons-datatables" style="width:100%">
+                        {{-- <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%"> --}}
+                        <table class="table nowrap align-middle" id="buttons-datatables" style="width:100%">
                             <thead class="table-light text-muted">
                                 <tr>
                                     <th class="text-left">#</th>
