@@ -16,9 +16,6 @@ class __init__ extends Controller
             $currency[] = $value['currency'];
         }
 
-        // return $credit_account;
-        //  dd($data[]);
- 
             $todayDate = $this->todayDate();
     
             $operator = $this->vendor($credit_account);
@@ -99,8 +96,6 @@ class __init__ extends Controller
 
     public function vendor(array $number)
     {
-
-        //
 
         $customer_number = $number;
         $phone = array();

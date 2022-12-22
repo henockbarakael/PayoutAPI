@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Payout;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
@@ -36,6 +37,7 @@ class PayoutsImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
                 'credit_account' => $row['credit_account'],
                 'amount' => $row['amount'],
                 'currency' => $row['currency'],
+                'userid' => Auth::user()->id,
             ]);
         }
     }

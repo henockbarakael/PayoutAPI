@@ -15,6 +15,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -29,27 +30,21 @@ class TransactionsController extends Controller
         return view('admin.transaction.add');
     }
     public function payout(){
-        $payouts = DB::table('payouts')->orderBy('id','desc')->get();
+        $payouts = DB::table('payouts')->where('userid', Auth::user()->id)->orderBy('id','desc')->get();
         return view('admin.payout.liste', compact('payouts'));
     }
 
-    public function payout_test(){
-        $payout_tests = DB::table('payout_tests')->orderBy('id','desc')->get();
-        return view('admin.payout.test', compact('payout_tests'));
-    }
-
-    public function payout_test_logs(){
-        $test_logs = DB::table('payout_test_logs')->orderBy('id','desc')->get();
-        return view('admin.payout.test_logs', compact('test_logs'));
-    }
-
     public function payout_logs(){
-        $logs = DB::table('payout_logs')->orderBy('id','desc')->get();
+        $logs = DB::table('payout_logs')->where('userid', Auth::user()->id)->orderBy('id','desc')->get();
         return view('admin.payout.logs', compact('logs'));
     }
 
 
     public function process_payout(Request $request){
+
+        $request->validate([
+            'file' => 'required|mimes:csv,txt,xlsx,xls',
+        ]);
 
         $file = $request->file('file')->store('import');
 
@@ -77,7 +72,7 @@ class TransactionsController extends Controller
     }
 
     public function paiement(Request $request,$id){
-        $payouts = DB::table('payouts')->where('id',$id)->first();
+        $payouts = DB::table('payouts')->where('userid', Auth::user()->id)->where('id',$id)->first();
 
         $credit_account = $payouts->credit_account;
         $amount = $payouts->amount;
@@ -97,6 +92,7 @@ class TransactionsController extends Controller
                 'created_at' => $response['created_at'],
                 'debit_channel' => $response['debit_channel'],
                 'destination_account' => $response['destination_account'],
+                'userid' => Auth::user()->id,
             ];
         
             DB::table('payout_logs')->insert($data);
@@ -121,6 +117,7 @@ class TransactionsController extends Controller
                 'created_at' => $response['created_at'],
                 'debit_channel' => $response['debit_channel'],
                 'destination_account' => $response['destination_account'],
+                'userid' => Auth::user()->id,
             ];
         
             DB::table('payout_logs')->insert($data);
@@ -143,6 +140,7 @@ class TransactionsController extends Controller
                 'created_at' => $response['created_at'],
                 'debit_channel' => $response['debit_channel'],
                 'destination_account' => $response['destination_account'],
+                'userid' => Auth::user()->id,
             ];
         
             DB::table('payout_logs')->insert($data);
@@ -239,7 +237,8 @@ class TransactionsController extends Controller
                         'transaction_status' => $response['transaction_status'],
                         'created_at' => $response['created_at'],
                         'debit_channel' => $response['debit_channel'],
-                        'destination_account' => $response['destination_account']
+                        'destination_account' => $response['destination_account'],
+                        'userid' => Auth::user()->id
                 ];
                 $store = DB::table('payout_logs')->insert($data);
                 if ($store) {
