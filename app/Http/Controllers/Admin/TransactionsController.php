@@ -212,55 +212,57 @@ class TransactionsController extends Controller
                    $debit_account = "0858005724";
                    $vendor = "orange";
                }
+
+               $accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDc0NDY0NjQsIm5iZiI6MTY0NzQ0NjQ2NCwianRpIjoiN2QxMThiMjEtODczZS00ZTBlLThjZjktYWRiYTc5ZDY4MDdhIiwiZXhwIjoxNjc4OTgyNDY0LCJpZGVudGl0eSI6IkZQMDA0IiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.bmQZL6iwop5VDA9bkp1oT-e4Qkh2aSxDVy7C9_VSsqQ";
+     
+                $headers = [
+                    'X-header' => 'Content-Type:application/json',
+                    'Authorization'  => 'Bearer '.$accessToken,
+                ];
+        
+                $curl_post_data = [
+                    "credit_account" => $telephone,
+                    "amount" => $amount,
+                    "currency" => $currency,
+                    "action" => "payout",
+                    "debit_channel" => $vendor,
+                    "debit_account" => $debit_account,
+                    "merchant_ref" => $merchant_ref,
+                    "merchant_code" => "FP001",
+                    "key" => $key
+                ];
+
+                    $response = Http::withHeaders($headers)->post($apiURL, $curl_post_data);
+                    $statusCode = $response->status();
+                    $responseBody = json_decode($response->getBody(), true);
+
+                    if ($statusCode == 200) {
+                        $data = [
+                                'amount' => $response['amount'],
+                                'currency' => $response['currency'],
+                                'status' => $response['status'],
+                                'financial_institution_transaction_id' => $response['financial_institution_transaction_id'],
+                                'trans_id' => $response['trans_id'],
+                                'transaction_status' => $response['transaction_status'],
+                                'created_at' => $response['created_at'],
+                                'debit_channel' => $response['debit_channel'],
+                                'destination_account' => $response['destination_account'],
+                                'userid' => Auth::user()->id
+                        ];
+                        $store = DB::table('payout_logs')->insert($data);
+                        if ($store) {
+                            $transaction=payout::find($ids);
+                            $transaction->delete();
+                            Toastr::success('Transaction has been successfully submitted!', "Success");
+                        }
+
+                    }
+                    else {
+                        Toastr::error('Transaction failed!', "Error");
+                    }
             }
         
-           $accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDc0NDY0NjQsIm5iZiI6MTY0NzQ0NjQ2NCwianRpIjoiN2QxMThiMjEtODczZS00ZTBlLThjZjktYWRiYTc5ZDY4MDdhIiwiZXhwIjoxNjc4OTgyNDY0LCJpZGVudGl0eSI6IkZQMDA0IiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.bmQZL6iwop5VDA9bkp1oT-e4Qkh2aSxDVy7C9_VSsqQ";
-     
-           $headers = [
-               'X-header' => 'Content-Type:application/json',
-               'Authorization'  => 'Bearer '.$accessToken,
-           ];
-   
-           $curl_post_data = [
-               "credit_account" => $telephone,
-               "amount" => $amount,
-               "currency" => $currency,
-               "action" => "payout",
-               "debit_channel" => $vendor,
-               "debit_account" => $debit_account,
-               "merchant_ref" => $merchant_ref,
-               "merchant_code" => "FP001",
-               "key" => $key
-           ];
-
-            $response = Http::withHeaders($headers)->post($apiURL, $curl_post_data);
-            $statusCode = $response->status();
-            $responseBody = json_decode($response->getBody(), true);
-
-            if ($statusCode == 200) {
-                $data = [
-                        'amount' => $response['amount'],
-                        'currency' => $response['currency'],
-                        'status' => $response['status'],
-                        'financial_institution_transaction_id' => $response['financial_institution_transaction_id'],
-                        'trans_id' => $response['trans_id'],
-                        'transaction_status' => $response['transaction_status'],
-                        'created_at' => $response['created_at'],
-                        'debit_channel' => $response['debit_channel'],
-                        'destination_account' => $response['destination_account'],
-                        'userid' => Auth::user()->id
-                ];
-                $store = DB::table('payout_logs')->insert($data);
-                if ($store) {
-                    $transaction=payout::find($ids);
-                    $transaction->delete();
-                    Toastr::success('Transaction has been successfully submitted!', "Success");
-                }
-
-            }
-            else {
-                Toastr::error('Transaction failed!', "Error");
-            }
+           
 
         }
         return response()->json(['status'=>true,'message'=>"Payout successfully done! Please check logs status."]);
