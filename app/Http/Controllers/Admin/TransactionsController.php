@@ -12,6 +12,7 @@ use App\Models\Payout;
 use App\Models\payout_test;
 use App\Models\Transaction;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
@@ -160,6 +161,12 @@ class TransactionsController extends Controller
 
     }
 
+    public function todayDate(){
+        Carbon::setLocale('fr');
+        $todayDate = Carbon::now()->format('Y-m-d H:i:s');
+        return $todayDate;
+    }
+
     public function paiementMultiple(Request $request){
         $convert = explode(",",$request->ids);
         $rows = Payout::whereIn('id', $convert)->get();
@@ -172,9 +179,23 @@ class TransactionsController extends Controller
 
             $operator = $this->vendor($credit_account);
 
+            
+
             if ($operator == null) {
-                $transaction=payout::find($ids);
-                $transaction->delete();
+                $data = [
+                    'customer_details' => $credit_account,
+                    'amount' => $amount,
+                    'currency' => $currency,
+                    'created_at' => $this->todayDate(),
+                    'error' => $operator,
+                    'userid' => Auth::user()->id
+                ];
+                $store = DB::table('errors')->insert($data);
+                        if ($store) {
+                            $transaction=payout::find($ids);
+                            $transaction->delete();
+                            // Toastr::success('Transaction has been successfully submitted!', "Success");
+                        }
             }
             else {
                 if ($operator == "mpesa") {
