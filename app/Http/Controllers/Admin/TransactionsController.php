@@ -171,44 +171,49 @@ class TransactionsController extends Controller
             $currency = $row['currency'];
 
             $operator = $this->vendor($credit_account);
-            dd($operator);
 
-            if ($operator == "mpesa") {
-                $telephone = $this->vodacom($credit_account);
+            if ($operator == null) {
+                $transaction=payout::find($ids);
+                $transaction->delete();
             }
             else {
-                $telephone = $credit_account;
+                if ($operator == "mpesa") {
+                    $telephone = $this->vodacom($credit_account);
+                }
+                else {
+                    $telephone = $credit_account;
+                }
+    
+               if ($operator == "mpesa") {
+    
+                   $prefix = "BFINM";
+                   $apiURL = 'http://35.206.184.126:2801/api/v1/voda_fresh_payouts';
+                   $merchant_ref = $this->merchant_ref($prefix);
+                   $key = "oXc281OO9]AIl5.mZZ'#(c}j6rP,]E";
+                   $debit_account = "15120";
+                   $vendor = "vodacom";
+       
+               }
+               if ($operator == "airtel") {
+    
+                   $prefix = "FINA";
+                   $apiURL = 'http://35.205.213.194:2801/api/v1/airtel_fresh_payouts';
+                   $merchant_ref = $this->merchant_ref($prefix);
+                   $key = "oXc7119158]AIl5.mZZ'#(c}m6rP,Xi";
+                   $debit_account = "999500263";
+                   $vendor = "airtel";
+               }
+               if ($operator == "orange") {
+    
+                   $prefix = "FINO";
+                   $apiURL = 'http://35.233.0.76:2801/api/v1/orange_fresh_payouts';
+                   $merchant_ref = $this->merchant_ref($prefix);
+                   $key = "oXc7119158]AIl5.mZZ'#(c}m6rP,Xi";
+                   $debit_account = "0858005724";
+                   $vendor = "orange";
+               }
             }
-
-           if ($operator == "mpesa") {
-
-               $prefix = "BFINM";
-               $apiURL = 'http://35.206.184.126:2801/api/v1/voda_fresh_payouts';
-               $merchant_ref = $this->merchant_ref($prefix);
-               $key = "oXc281OO9]AIl5.mZZ'#(c}j6rP,]E";
-               $debit_account = "15120";
-               $vendor = "vodacom";
-   
-           }
-           if ($operator == "airtel") {
-
-               $prefix = "FINA";
-               $apiURL = 'http://35.205.213.194:2801/api/v1/airtel_fresh_payouts';
-               $merchant_ref = $this->merchant_ref($prefix);
-               $key = "oXc7119158]AIl5.mZZ'#(c}m6rP,Xi";
-               $debit_account = "999500263";
-               $vendor = "airtel";
-           }
-           if ($operator == "orange") {
-
-               $prefix = "FINO";
-               $apiURL = 'http://35.233.0.76:2801/api/v1/orange_fresh_payouts';
-               $merchant_ref = $this->merchant_ref($prefix);
-               $key = "oXc7119158]AIl5.mZZ'#(c}m6rP,Xi";
-               $debit_account = "0858005724";
-               $vendor = "orange";
-           }
-   
+        
            $accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDc0NDY0NjQsIm5iZiI6MTY0NzQ0NjQ2NCwianRpIjoiN2QxMThiMjEtODczZS00ZTBlLThjZjktYWRiYTc5ZDY4MDdhIiwiZXhwIjoxNjc4OTgyNDY0LCJpZGVudGl0eSI6IkZQMDA0IiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.bmQZL6iwop5VDA9bkp1oT-e4Qkh2aSxDVy7C9_VSsqQ";
      
            $headers = [
