@@ -24,6 +24,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionsController extends Controller
 {
+    public function __construct()
+    {
+        ini_set('max_execution_time', 1200);
+    }
 
     public function index()
     {
