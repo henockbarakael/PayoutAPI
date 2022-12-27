@@ -187,7 +187,7 @@ class TransactionsController extends Controller
                     'amount' => $amount,
                     'currency' => $currency,
                     'created_at' => $this->todayDate(),
-                    'error' => $operator,
+                    'error' => "Number is incorrect",
                     'userid' => Auth::user()->id
                 ];
                 $store = DB::table('errors')->insert($data);
