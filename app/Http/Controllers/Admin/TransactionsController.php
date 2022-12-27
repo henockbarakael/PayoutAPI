@@ -171,6 +171,7 @@ class TransactionsController extends Controller
             $currency = $row['currency'];
 
             $operator = $this->vendor($credit_account);
+            dd($operator);
 
             if ($operator == "mpesa") {
                 $telephone = $this->vodacom($credit_account);
