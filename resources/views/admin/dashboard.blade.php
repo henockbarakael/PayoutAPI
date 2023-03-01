@@ -13,7 +13,7 @@
         <div class="row row-cols-xxl-5 row-cols-lg-4 row-cols-sm-2 row-cols-1">
             <div class="col">
                 <div class="card">
-                    <div class="card-body d-flex">
+                    <div class="card-body d-flex bg-danger">
                         <div class="flex-grow-1">
                             <h4>{{$file_imported}}</h4>
                             <h6 class="text-muted fs-13 mb-0">Total transaction</h6>

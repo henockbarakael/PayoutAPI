@@ -58,30 +58,11 @@
                                     <form class="needs-validation" method="POST" action="{{route('register')}}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" placeholder="Enter email address" required>
-                                            @error('email')
+                                            <label for="merchant_code" class="form-label">Merchant Code <span class="text-danger">*</span></label>
+                                            <input name="merchant_code" type="text" class="form-control @error('merchant_code') is-invalid @enderror" value="{{ old('merchant_code') }}" id="merchant_code" placeholder="Enter merchant_code address" required>
+                                            @error('merchant_code')
                                             <div class="invalid-feedback">
-                                                Please enter email
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="firstname" class="form-label">Firstname <span class="text-danger">*</span></label>
-                                            <input name="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" id="firstname" placeholder="Enter firstname" required>
-                                            @error('firstname')
-                                            <div class="invalid-feedback">
-                                                Please enter firstname
-                                            </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="lastname" class="form-label">Lastname <span class="text-danger">*</span></label>
-                                            <input name="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}" id="lastname" placeholder="Enter lastname" required>
-                                            @error('lastname')
-                                            <div class="invalid-feedback">
-                                                Please enter lastname
+                                                Please enter merchant code
                                             </div>
                                             @enderror
                                         </div>

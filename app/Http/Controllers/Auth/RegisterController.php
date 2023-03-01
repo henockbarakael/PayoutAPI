@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
@@ -69,11 +70,8 @@ class RegisterController extends Controller
     protected function storeUser(Request $request)
     {
         $data = $request->validate([
-            'firstname'  => 'required|string|max:255',
-            'lastname'  => 'required|string|max:255',
             'role_name'  => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            // 'password'  => 'required|string|min:8',
+            'merchant_code'  => 'required|string|max:255',
         ]);
 
         $date       = Carbon::now();
@@ -81,25 +79,30 @@ class RegisterController extends Controller
 
         $generateID = new generateIDController;
         $password = $generateID->password();
-        $username = $generateID->username($data['firstname'],$data['lastname']);
 
         if ($data['role_name'] == "Admin") {
             $niveau = "0";
         }
 
-        elseif ($data['role_name'] == "Super Admin") {
+        elseif ($data['role_name'] == "Merchant") {
             $niveau = "1";
         }
+        $merchant_code = $request->merchant_code;
 
-        elseif ($data['role_name'] == "Support") {
-            $niveau = "2";
-        }
+        $response = Http::get('http://127.0.0.1:8086/services/paydrc/merchant/<merchant_code>?', ["merchant_code"=>$merchant_code]);
+        $result = $response->json();
+
+        // dd($result);
 
         User::create([
-            'username' => $username,
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
+            'merchant_id' => $result[0]['merchant_id'],
+            'merchant_code' => $result[0]['merchant_code'],
+            // 'merchant_secrete' => $result[0]['merchant_secrete'],
+            'institution_code' => $result[0]['institution_code'],
+            'institution_name' => $result[0]['institution_name'],
+            'firstname' => $result[0]['firstname'],
+            'lastname' => $result[0]['lastname'],
+            'email' => $result[0]['email'],
             'salt'     => $password,
             'niveau'     => $niveau,
             'password' => Hash::make($password),

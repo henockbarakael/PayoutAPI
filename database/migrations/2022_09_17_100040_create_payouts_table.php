@@ -18,6 +18,8 @@ class CreatePayoutsTable extends Migration
             $table->string('credit_account')->nullable();
             $table->string('amount')->nullable();
             $table->string('currency')->nullable();
+            $table->string('status')->nullable();
+            $table->string('userid')->nullable();
             $table->timestamps();
         });
     }

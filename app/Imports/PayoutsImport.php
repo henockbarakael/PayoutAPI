@@ -16,12 +16,12 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\ToModel;
 
-class PayoutsImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure, WithChunkReading, ShouldQueue, WithEvents
+class PayoutsImport implements ToModel, SkipsOnError, WithValidation, SkipsOnFailure, WithChunkReading, ShouldQueue, WithEvents
 {
     use Importable, SkipsErrors, SkipsFailures, RegistersEventListeners;
     /**
@@ -29,22 +29,28 @@ class PayoutsImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-
-    public function collection(Collection $rows)
+    private $rows = 0;
+    public function model(array $row)
     {
-        foreach ($rows as $row) {
+        
+            ++$this->rows;
             Payout::create([
-                'credit_account' => $row['credit_account'],
-                'amount' => $row['amount'],
-                'currency' => $row['currency'],
+                'customer_details' => $row[0],
+                'amount' => $row[1],
+                'currency' => $row[2],
                 'userid' => Auth::user()->id,
             ]);
-        }
+        
+    }
+
+    public function getRowCount(): int
+    {
+        return $this->rows;
     }
 
     public function rules(): array {
         return [
-            '*.credit_account' => 'required',
+            '*.customer_details' => 'required',
             '*.amount' => 'required',
             '*.currency' => 'required',
         ];

@@ -101,7 +101,7 @@
                     </div>
                 </div> --}}
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                {{-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-category-alt fs-22'></i>
                     </button>
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
 
 

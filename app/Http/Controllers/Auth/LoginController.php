@@ -69,24 +69,24 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
             'password' => 'required|string|max:8',
         ]);
 
         $date       = Carbon::now();
         $todayDate  = $date->toDayDateTimeString();
-        $username = $request->username;;
+        $firstname = $request->firstname;;
         $password = $request->password;
 
-        if (Auth::attempt(['username'=>$username,'password'=>$password])) {
+        if (Auth::attempt(['firstname'=>$firstname,'password'=>$password])) {
             if (Auth::user()->niveau == "0") {
-                $stmt = DB::table('users')->where('username',$username)->first();
+                $stmt = DB::table('users')->where('firstname',$firstname)->first();
                 $user_id = $stmt->id;
-                $username = $stmt->username;
+                $firstname = $stmt->firstname;
                 $clientIP = request()->ip();
                 $log = [
                     'user_id'  => $user_id,
-                    'username'  => $username,
+                    'username'  => $firstname,
                     'description' => 'Connecté',
                     'date_time'   => $todayDate,
                     'ipadress'   => $clientIP,
@@ -99,10 +99,30 @@ class LoginController extends Controller
                 Toastr::success('Login successfully :)','Succès');
                 return redirect()->route('admin.dashboard');
             }
+            elseif (Auth::user()->niveau == "1") {
+                $stmt = DB::table('users')->where('firstname',$firstname)->first();
+                $user_id = $stmt->id;
+                $firstname = $stmt->firstname;
+                $clientIP = request()->ip();
+                $log = [
+                    'user_id'  => $user_id,
+                    'username'  => $firstname,
+                    'description' => 'Connecté',
+                    'date_time'   => $todayDate,
+                    'ipadress'   => $clientIP,
+                ];
+                $user_status = [
+                    'user_status' => 'En ligne',
+                ];
+                DB::table('activity_logs')->insert($log);
+                DB::table('users')->where('id',$user_id)->update($user_status);
+                Toastr::success('Login successfully :)','Succès');
+                return redirect()->route('merchant.dashboard');
+            }
 
         }
         else{
-            Toastr::error('Echec, username ou mot de passe incorrect :)','Erreur');
+            Toastr::error('Echec, firstname ou mot de passe incorrect :)','Erreur');
             return redirect('login');
         }
     }
