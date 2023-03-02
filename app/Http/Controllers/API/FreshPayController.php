@@ -13,7 +13,7 @@ class FreshPayController extends Controller
         // dd('test du callback');
         $data = $request->getContent();
         Callback::insert(["data" =>$data]);
-        $result = json_decode($data);
+        $result = json_decode($request->getContent(),true);
      
 
         $dataToSend =  [
