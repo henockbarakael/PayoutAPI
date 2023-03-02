@@ -42,7 +42,7 @@ class HomeController extends Controller
             "merchant_code" => $merchant_info->merchant_code,
         ];
         
-        $sendData = Http::post('http://127.0.0.1:8086/merchants/merchant-wallet', $data);
+        $sendData = Http::post('http://206.189.25.253/merchants/merchant-wallet', $data);
         $transactions = $sendData->json();
 
 

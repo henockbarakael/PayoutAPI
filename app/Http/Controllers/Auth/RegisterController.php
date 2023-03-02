@@ -89,7 +89,7 @@ class RegisterController extends Controller
         }
         $merchant_code = $request->merchant_code;
 
-        $response = Http::get('http://127.0.0.1:8086/services/paydrc/merchant/<merchant_code>?', ["merchant_code"=>$merchant_code]);
+        $response = Http::get('http://206.189.25.253/services/paydrc/merchant/<merchant_code>?', ["merchant_code"=>$merchant_code]);
         $result = $response->json();
 
         // dd($result);
