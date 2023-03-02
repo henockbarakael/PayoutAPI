@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Callback;
 use App\Models\CallbackResponse;
 use Illuminate\Http\Request;
 
 class CallbackController extends Controller
 {
     public function getCallbackResponse(Request $request){
+
+        $data = $request->getContent();
 
         $dataToSend =  [
             "status" => $request->Status,
@@ -26,5 +29,6 @@ class CallbackController extends Controller
         ];
 
         CallbackResponse::create($dataToSend);
+        Callback::create(["data" =>$data]);
     }
 }
