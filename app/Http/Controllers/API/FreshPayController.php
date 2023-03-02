@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FreshPayController extends Controller
 {
     public function getCallbackResponse(Request $request){
-        dd('test du callback');
+        // dd('test du callback');
         $data = $request->all();
 
         // $dataToSend =  [
