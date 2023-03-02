@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CallbackController extends Controller
 {
     public function getCallbackResponse(Request $request){
-        dd('ok');
+        dd('test du callback');
         $data = $request->all();
 
         // $dataToSend =  [
