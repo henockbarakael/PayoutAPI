@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Callback;
+use App\Models\CallbackData;
 use Illuminate\Http\Request;
 
 class FreshPayController extends Controller
@@ -12,24 +13,17 @@ class FreshPayController extends Controller
         // dd('test du callback');
         $data = $request->getContent();
         $result = json_decode($data, true);
-        dd($result);
+     
 
-        // $dataToSend =  [
-        //     "status" => $request->Status,
-        //     "comment" => $request->Comment,
-        //     "trans_status" => $request->Trans_Status,
-        //     "currency" => $request->Currency,
-        //     "amount" => $request->Amount,
-        //     "method" => $request->Method,
-        //     "customer_details" => $request->Customer_Details,
-        //     "reference" => $request->Reference,
-        //     "paydrc_reference" => $request->PayDRC_Reference,
-        //     "action" => $request->Action,
-        //     "status_description" => $request->Status_Description,
-        //     "trans_status_description" => $request->Trans_Status_Description
-        // ];
+        $dataToSend =  [
+            "status" => $result['Status'],
+            "telco_reference" => $result['telco_reference'],
+            "switch_reference" => $result['switch_reference'],
+            "paydrc_reference" => $result['PayDRC_Reference'],
+            "action" => $result['action'],
+            "telco_status_description" => $result['telco_status_description'],
+        ];
 
-        // CallbackResponse::create($dataToSend);
-        Callback::insert(["data" =>$data]);
+        CallbackData::insert($dataToSend);
     }
 }
