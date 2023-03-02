@@ -18,7 +18,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">CDF {{$airtel_cdf}}</span>
+                                    <span >CDF {{$airtel_cdf}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> AIRTEL BALANCE
@@ -36,7 +36,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">USD {{$airtel_usd}}</span>
+                                    <span >USD {{$airtel_usd}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> AIRTEL BALANCE
@@ -54,7 +54,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">CDF {{$vodacom_cdf}}</span>
+                                    <span >CDF {{$vodacom_cdf}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> VODACOM BALANCE
@@ -72,7 +72,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">USD {{$vodacom_usd}}</span>
+                                    <span >USD {{$vodacom_usd}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> VODACOM BALANCE
@@ -90,7 +90,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">CDF {{$orange_cdf}}</span>
+                                    <span >CDF {{$orange_cdf}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> ORANGE BALANCE
@@ -108,7 +108,7 @@
                             <div>
                                 {{-- <p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p> --}}
                                 <h2 class="mt-4 ff-secondary fw-semibold text-white">
-                                    <span class="counter-value">USD {{$orange_usd}}</span>
+                                    <span >USD {{$orange_usd}}</span>
                                 </h2>
                                 <p class="mb-0 text-white-50"><span class="badge badge-soft-light mb-0">
                                         <i class="ri-arrow-down-line align-middle"></i> ORANGE BALANCE

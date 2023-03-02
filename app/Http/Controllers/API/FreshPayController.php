@@ -15,7 +15,6 @@ class FreshPayController extends Controller
         Callback::insert(["data" =>$data]);
         $result = json_decode($request->getContent(),true);
      
-
         $dataToSend =  [
             "status" => $result['status'],
             "telco_reference" => $result['telco_reference'],
@@ -25,7 +24,6 @@ class FreshPayController extends Controller
             "telco_status_description" => $result['telco_status_description'],
         ];
 
-        
         // Callback::insert(["data" =>$result]);
         CallbackData::insert($dataToSend);
     }

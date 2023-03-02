@@ -45,7 +45,8 @@ class HomeController extends Controller
         $sendData = Http::post('http://206.189.25.253/merchants/merchant-wallet', $data);
         $transactions = $sendData->json();
 
-
+        // $airtel_cdf = 0;
+        // dd($transactions);
         foreach ($transactions as $key => $value) {
             if ($value["vendor"] == "airtel" && $value["currency"] == "CDF") {
                 $airtel_cdf = $value["amount"];
@@ -66,6 +67,8 @@ class HomeController extends Controller
                 $vodacom_usd = $value["amount"];
             }
         }
+
+        // dd($orange_cdf);
         
         $file_imported = DB::table('payouts')->where('userid', Auth::user()->id)->count();
         $log_success = DB::table('payout_logs')->whereDate('created_at', Carbon::today()->toDateString())->where('userid', Auth::user()->id)->where('status','Successful')->count();
