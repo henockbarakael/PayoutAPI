@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Callback;
 use Illuminate\Http\Request;
 
-class CallbackController extends Controller
+class FreshPayController extends Controller
 {
     public function getCallbackResponse(Request $request){
         dd('test du callback');

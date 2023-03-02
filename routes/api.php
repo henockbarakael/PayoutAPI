@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group( function () {
     
 });
-Route::post('/v1/bulkpayment', 'App\Http\Controllers\API\CallbackController@getCallbackResponse');
+Route::post('/v1/bulkpayment', 'App\Http\Controllers\API\FreshPayController@getCallbackResponse');
