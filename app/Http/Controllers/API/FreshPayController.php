@@ -12,15 +12,15 @@ class FreshPayController extends Controller
     public function getCallbackResponse(Request $request){
         // dd('test du callback');
         $data = $request->getContent();
-        $reponse = json_decode($data, true);
-        $result = json_decode($reponse, true);
+        $result = json_decode($data, true);
+        // $result = json_decode($reponse, true);
      
 
         $dataToSend =  [
-            "status" => $result['Status'],
+            "status" => $result['status'],
             "telco_reference" => $result['telco_reference'],
             "switch_reference" => $result['switch_reference'],
-            "paydrc_reference" => $result['PayDRC_Reference'],
+            "paydrc_reference" => $result['paydrc_reference'],
             "action" => $result['action'],
             "telco_status_description" => $result['telco_status_description'],
         ];
