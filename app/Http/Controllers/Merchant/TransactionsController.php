@@ -187,7 +187,7 @@ class TransactionsController extends Controller
         $convert = explode(",",$request->ids);
         $rows = Payout::whereIn('id', $convert)->get();
         
-        $prefix = "BULK";
+     
         foreach($rows as $idx => $row) {
 
             $ids = $row['id'];
@@ -229,7 +229,7 @@ class TransactionsController extends Controller
                     "firstname" =>$merchant_info->firstname,
                     "lastname" => $merchant_info->lastname,
                     "email" => $merchant_info->email,
-                    "reference" => $this->merchant_ref($prefix),
+                    "reference" => $row['reference'],
                     "callback_url" => "https://phplaravel-900404-3126347.cloudwaysapps.com/api/v1/bulkpayment"
                 ];
 
@@ -278,6 +278,8 @@ class TransactionsController extends Controller
                             
                             );
                             if($save){
+                                $transaction=payout::find($ids);
+                                $transaction->delete();
                                 Toastr::success('Transaction has been successfully submitted!', "Success");
                             }
                             else{

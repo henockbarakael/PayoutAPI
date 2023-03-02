@@ -30,14 +30,30 @@ class PayoutsImport implements ToModel, SkipsOnError, WithValidation, SkipsOnFai
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     private $rows = 0;
+
+    public function merchant_ref($prefix) {
+        $length = 13;
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = $prefix;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     public function model(array $row)
     {
         
             ++$this->rows;
+
+            $prefix = "BULK";
+            
             Payout::create([
                 'customer_details' => $row[0],
                 'amount' => $row[1],
                 'currency' => $row[2],
+                "reference" => $this->merchant_ref($prefix),
                 'userid' => Auth::user()->id,
             ]);
         
