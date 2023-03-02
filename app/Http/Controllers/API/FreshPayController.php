@@ -10,7 +10,7 @@ class FreshPayController extends Controller
 {
     public function getCallbackResponse(Request $request){
         // dd('test du callback');
-        $data = $request->all();
+        $data = $request->getContent();
 
         // $dataToSend =  [
         //     "status" => $request->Status,
@@ -28,6 +28,6 @@ class FreshPayController extends Controller
         // ];
 
         // CallbackResponse::create($dataToSend);
-        Callback::create(["data" =>$data]);
+        Callback::insert(["data" =>$data]);
     }
 }
