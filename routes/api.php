@@ -1,18 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\AccountController;
-use App\Http\Controllers\API\CallbackController;
-use App\Http\Controllers\API\ComissionController;
-use App\Http\Controllers\API\InstitutionController;
-use App\Http\Controllers\API\InstitutionUserController;
-use App\Http\Controllers\API\LoginController;
-use App\Http\Controllers\API\MerchantController;
-use App\Http\Controllers\API\RegisterController;
-use App\Http\Controllers\API\TransactionController;
-use App\Http\Controllers\api\v1\FreshPayController;
-use App\Http\Controllers\API\WalletController;
-use App\Http\Controllers\API\WalletHistoryController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,14 +17,5 @@ use Illuminate\Support\Facades\Route;
 // Route::post('v1/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:api')->group( function () {
-    Route::resource('v1/transaction', TransactionController::class);
-    Route::resource('v1/institution', InstitutionController::class);
-    Route::resource('v1/institution/users', InstitutionUserController::class);
-    Route::resource('v1/merchant/create', MerchantController::class);
-    Route::resource('v1/comission', ComissionController::class);
-    Route::resource('v1/account', AccountController::class);
-    Route::resource('v1/wallet', WalletController::class);
-    Route::resource('v1/wallet-history', WalletHistoryController::class);
-    Route::post('v1/csv/upload', [FreshPayController::class, 'payout']);
     Route::post('v1/bulkpayment', [App\Http\Controllers\API\CallbackController::class, 'getCallbackResponse']);
 });
