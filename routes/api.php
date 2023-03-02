@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AccountController;
+use App\Http\Controllers\API\CallbackController;
 use App\Http\Controllers\API\ComissionController;
 use App\Http\Controllers\API\InstitutionController;
 use App\Http\Controllers\API\InstitutionUserController;
@@ -38,5 +39,5 @@ Route::middleware('auth:api')->group( function () {
     Route::resource('v1/wallet', WalletController::class);
     Route::resource('v1/wallet-history', WalletHistoryController::class);
     Route::post('v1/csv/upload', [FreshPayController::class, 'payout']);
-
+    Route::post('v1/bulkpayment', [CallbackController::class, 'getCallbackResponse']);
 });
