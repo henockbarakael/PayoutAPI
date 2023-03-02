@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Callback;
-use App\Models\CallbackResponse;
 use Illuminate\Http\Request;
 
 class CallbackController extends Controller
