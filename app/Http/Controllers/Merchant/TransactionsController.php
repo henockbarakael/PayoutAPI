@@ -320,7 +320,7 @@ class TransactionsController extends Controller
                             'comment' => $comment,
                             'action' => "credit",
                             'method' => $operator,
-                            'status' => $status,
+                            'status' => "Pending",
                             'reference' => $reference,
                             'transaction_id' => $paydrc_reference,
                             'user_id' => Auth::user()->id,
@@ -330,8 +330,6 @@ class TransactionsController extends Controller
                         
                         );
                         if($save){
-                            // $transaction=payout::find($ids);
-                            // $transaction->delete();
                             Toastr::success('Transaction has been successfully submitted!', "Success");
                         }
                         else{
