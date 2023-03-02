@@ -281,7 +281,7 @@ class TransactionsController extends Controller
                     "lastname" => $merchant_info->lastname,
                     "email" => $merchant_info->email,
                     "reference" => $this->merchant_ref($prefix),
-                    "callback_url" => ""
+                    "callback_url" => "https://phplaravel-900404-3126347.cloudwaysapps.com/api/v1/bulkpayment"
                 ];
 
                 // dd($curl_post_data);
