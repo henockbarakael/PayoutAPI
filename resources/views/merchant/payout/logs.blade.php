@@ -28,12 +28,12 @@
                         <table class="table nowrap align-middle" id="payout" style="width:100%">
                             <thead class="table-light text-muted">
                                 <tr>
-                                    <th class="text-left">#</th>
-                                    <th class="text-left">Phone number</th>
+                                    <th class="text-left">Customer</th>
                                     <th class="text-center">Amount</th>
-                                    {{-- <th class="text-center">Currency</th> --}}
-                                    <th class="text-left">Operator</th>
-                                    <th class="text-left">Reference</th>
+                                    <th class="text-left">Action</th>
+                                    <th class="text-left">Transaction_ID</th>
+                                    <th class="text-left">Reference FP</th>
+                                    <th class="text-left">Telco. Ref</th>
                                     <th class="text-left">Status</th>
                                     <th class="text-left">Created_at</th>
                                 </tr>
@@ -41,12 +41,12 @@
                             <tbody>
                                 @foreach ($logs as $key => $item)
                                 <tr>
-                                    <td class="text-left">{{ ++$key}}</td>
-                                    <td class="text-left">{{ $item->destination_account}}</td>
+                                    <td class="text-left">{{ $item->customer_number}}</td>
                                     <td class="text-left">{{ $item->amount." ".$item->currency }}</td>
-                                    {{-- <td class="text-left">{{ $item->currency }}</td> --}}
-                                    <td class="text-left">{{ $item->debit_channel }}</td>
-                                    <td class="text-left">{{ $item->trans_id }}</td>
+                                    <td class="text-left">{{ $item->action }}</td>
+                                    <td class="text-left">{{ $item->reference }}</td>
+                                    <td class="text-left">{{ $item->transaction_id }}</td>
+                                    <td class="text-left">{{ $item->telco_reference }}</td>
                                     <td class="text-left">{{ $item->status }}</td>
                                     <td class="text-left">{{ $item->created_at }}</td>
                                 </tr>

@@ -43,7 +43,7 @@ class TransactionsController extends Controller
     }
 
     public function payout_logs(){
-        $logs = DB::table('payout_logs')->where('userid', Auth::user()->id)->orderBy('id','desc')->get();
+        $logs = DB::table('mobile_money')->where('user_id', Auth::user()->id)->orderBy('id','desc')->get();
         return view('merchant.payout.logs', compact('logs'));
     }
 
@@ -154,57 +154,6 @@ class TransactionsController extends Controller
             throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
         }
     }
-    // public function sendEmail($email, $name){
-    //     $data = array(
-    //     'email' => $email,
-    //     'name' => $name,
-    //     'subject' => 'Welcome Message',
-    //     );
-    //     Mail::send('welcomeEmail', $data, function ($message) use ($data) {
-    //     $message->from('welcome@myapp.com');
-    //     $message->to($data['email']);
-    //     $message->subject($data['subject']);
-    //     });
-    // }
-        
-
-
-    // public function process_payout(Request $request){
-
-    //     $validator = Validator::make($request->all(), [
-    //         // 'file' => 'required|mimes:csv,txt,xlsx,xls',
-    //         'no_transaction' => 'required|string|max:255',
-    //     ]);
-    
-  
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'error' => true,
-    //             // 'file' => $validator->errors()->first('file'),
-    //             'no_transaction' => $validator->errors()->first('no_transaction'),
-    //         ]);
-    //     }
-    //     // $request->validate([
-    //     //     'file' => 'required|mimes:csv,txt,xlsx,xls',
-    //     //     'no_transaction' => 'required|string|max:255',
-    //     // ]);
-
-    //     $file = $request->file('file');
-
-    //     // Excel::import(new UsersImport, $request->file);
-
-    //     $import = new PayoutsImport;
-    //     $import->import($file);
-    //     dd('Row count: ' . $import->getRowCount()); 
-
-    //     // if ($import->failures()->isNotEmpty()) {
-    //     //     return back()->withFailures($import->failures());
-    //     // }
-
-    //     Toastr::success("Records successful imported!",'Success');
-    //     return back()->withStatus('Import in queue, we will send notification after import finished.');
-
-    // }
 
     public function submit_checked(Request $request){
         $count = count($request->input('checked'));
@@ -268,7 +217,7 @@ class TransactionsController extends Controller
                 $url = 'https://paydrc.gofreshbakery.net/api/v5/';
 
                 $merchant_info = User::where('id', Auth::user()->id)->first();
-                // dd($merchant_info);
+           
                 $curl_post_data = [
                     "merchant_id" => $merchant_info->merchant_id,
                     "merchant_secrete"=> $merchant_info->merchant_secrete,
@@ -284,8 +233,6 @@ class TransactionsController extends Controller
                     "callback_url" => "https://phplaravel-900404-3126347.cloudwaysapps.com/api/v1/bulkpayment"
                 ];
 
-                // dd($curl_post_data);
-    
                 $data = json_encode($curl_post_data);
                 $ch=curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -296,7 +243,7 @@ class TransactionsController extends Controller
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
                 $curl_response = curl_exec($ch);
-                // dd($curl_response);
+                
                 if ($curl_response == false) {
                     $message = "Erreur de connexion! Vérifiez votre connexion internet";
                     Alert::error('Erreur', $message);
@@ -304,44 +251,47 @@ class TransactionsController extends Controller
                 }
                 else{
                     $curl_decoded = json_decode($curl_response,true);
-                    $status = $curl_decoded['Status'];
-                    if ($status == "Success") {
-                        $comment = $curl_decoded['Comment'];
-                        $customer_number = $curl_decoded['Customer_Number'];
-                        $paydrc_reference = $curl_decoded['Transaction_id'];
-                        $reference = $curl_decoded['Reference'];
-                        $created_at = $curl_decoded['Created_At'];
-                        $updated_at = $curl_decoded['Updated_At'];
-                        $save = DB::table('mobile_money')->insert(
-                        [
-                            'customer_number' => $customer_number,
-                            'amount' => $amount,
-                            'currency' => $currency,
-                            'comment' => $comment,
-                            'action' => "credit",
-                            'method' => $operator,
-                            'status' => "Pending",
-                            'reference' => $reference,
-                            'transaction_id' => $paydrc_reference,
-                            'user_id' => Auth::user()->id,
-                            'created_at' => $created_at,
-                            'updated_at' => $updated_at
-                        ]
-                        
-                        );
-                        if($save){
-                            Toastr::success('Transaction has been successfully submitted!', "Success");
+                    if ($curl_decoded != null) {
+                        $status = $curl_decoded['Status'];
+                        if ($status == "Success") {
+                            $comment = $curl_decoded['Comment'];
+                            $customer_number = $curl_decoded['Customer_Number'];
+                            $paydrc_reference = $curl_decoded['Transaction_id'];
+                            $reference = $curl_decoded['Reference'];
+                            $created_at = $curl_decoded['Created_At'];
+                            $updated_at = $curl_decoded['Updated_At'];
+                            $save = DB::table('mobile_money')->insert(
+                            [
+                                'customer_number' => $customer_number,
+                                'amount' => $amount,
+                                'currency' => $currency,
+                                'comment' => $comment,
+                                'action' => "credit",
+                                'method' => $operator,
+                                'status' => "Pending",
+                                'reference' => $reference,
+                                'transaction_id' => $paydrc_reference,
+                                'user_id' => Auth::user()->id,
+                                'created_at' => $created_at,
+                                'updated_at' => $updated_at
+                            ]
+                            
+                            );
+                            if($save){
+                                Toastr::success('Transaction has been successfully submitted!', "Success");
+                            }
+                            else{
+                                Toastr::error('Transaction envoyée avec succès :)','Error');
+                                return redirect()->back();
+                            }
+                            
                         }
-                        else{
-                            Toastr::error('Transaction envoyée avec succès :)','Error');
-                            return redirect()->back();
+                        else {
+                            Toastr::error($curl_decoded['Comment'],'Error');
+                            return redirect()->route('caissier-transfert-emala-mobile-credit');
                         }
-                        
                     }
-                    else {
-                        Toastr::error($curl_decoded['Comment'],'Error');
-                        return redirect()->route('caissier-transfert-emala-mobile-credit');
-                    }
+                    
                 }
 
             }

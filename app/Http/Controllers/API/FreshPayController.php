@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 class FreshPayController extends Controller
 {
     public function getCallbackResponse(Request $request){
-        // dd('test du callback');
+
         $data = $request->getContent();
         Callback::insert(["data" =>$data]);
         $result = json_decode($request->getContent(),true);
 
         if ($result != null) {
+
             $dataToSend =  [
                 "status" => $result['status'],
                 "telco_reference" => $result['telco_reference'],
@@ -27,9 +28,17 @@ class FreshPayController extends Controller
                 "action" => $result['action'],
                 "telco_status_description" => $result['telco_status_description'],
             ];
+
             $save = CallbackData::insert($dataToSend);
+
             if ($save) {
-                MobileMoney::where('transaction_id',$result['paydrc_reference'])->update(['status' => $result['status'],'updated_at' => $this->todayDate()]);
+                $update = [
+                    'status' => $result['status'],
+                    'telco_reference' => $result['telco_reference'],
+                    'updated_at' => $this->todayDate()
+                ];
+
+                MobileMoney::where('transaction_id',$result['paydrc_reference'])->update($update);
             }
             
         }
@@ -37,6 +46,7 @@ class FreshPayController extends Controller
      
         
     }
+    
     public function todayDate(){
         Carbon::setLocale('fr');
         $todayDate = Carbon::now()->format('Y-m-d H:i:s');
