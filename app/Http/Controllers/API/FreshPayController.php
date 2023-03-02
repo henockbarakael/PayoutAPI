@@ -11,6 +11,8 @@ class FreshPayController extends Controller
     public function getCallbackResponse(Request $request){
         // dd('test du callback');
         $data = $request->getContent();
+        $result = json_decode($data, true);
+        dd($result);
 
         // $dataToSend =  [
         //     "status" => $request->Status,
