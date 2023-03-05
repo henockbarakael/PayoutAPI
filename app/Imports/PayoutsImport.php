@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class PayoutsImport implements ToModel, SkipsOnError, WithValidation, SkipsOnFailure, WithChunkReading, ShouldQueue, WithEvents
+class PayoutsImport implements ToModel
 {
     use Importable, SkipsErrors, SkipsFailures, RegistersEventListeners;
     /**
@@ -46,14 +46,17 @@ class PayoutsImport implements ToModel, SkipsOnError, WithValidation, SkipsOnFai
     {
         
             ++$this->rows;
-
+            
             $prefix = "BULK";
             
+            $reference = $this->merchant_ref($prefix);
+
             Payout::create([
-                'customer_details' => $row[0],
+                'credit_account' => $row[0],
                 'amount' => $row[1],
                 'currency' => $row[2],
-                "reference" => $this->merchant_ref($prefix),
+                "reference" => $reference,
+                "status" => "Pending",
                 'userid' => Auth::user()->id,
             ]);
         
@@ -64,25 +67,5 @@ class PayoutsImport implements ToModel, SkipsOnError, WithValidation, SkipsOnFai
         return $this->rows;
     }
 
-    public function rules(): array {
-        return [
-            '*.customer_details' => 'required',
-            '*.amount' => 'required',
-            '*.currency' => 'required',
-        ];
-    }
-
-    public function chunkSize(): int
-    {
-        return 1000;
-    }
-
-    public static function afterImport(AfterImport $event)
-    {
-    }
-
-    public function onFailure(Failure ...$failure)
-    {
-    }
 
 }
