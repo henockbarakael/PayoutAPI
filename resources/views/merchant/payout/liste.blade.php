@@ -460,7 +460,7 @@
                         });
                         // Swal.fire('Delete all!', '', 'success')
                     } else if (result.isDenied) {
-                        Swal.fire('Denied!', '', 'info')
+                        Swal.fire('Canceled!', '', 'info')
                     }
                 })
                  
