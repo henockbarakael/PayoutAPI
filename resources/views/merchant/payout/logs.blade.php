@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card" id="customerList">
-                    <div class="card-header border-bottom-dashed">
+                    {{-- <div class="card-header border-bottom-dashed">
                         <div class="row g-4 align-items-center">
                             <div class="col-sm">
                                 <div>
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card-body">
                         {{-- <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%"> --}}
                         <table class="table nowrap align-middle" id="payout" style="width:100%">
