@@ -31,8 +31,8 @@ class AccountsController extends Controller
 
             #Update the new Password
             User::where('id',Auth::user()->id)->update([
-                'password' => Hash::make($request->new_password),
-                'salt' => $request->new_password
+                'password' => Hash::make($request->password),
+                'salt' => $request->password
             ]);
 
             return response()->json(['success' => true,'message' => "Password changed successfully!"]);

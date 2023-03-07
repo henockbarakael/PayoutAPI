@@ -22,12 +22,14 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate']);
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'storeUser'])->name('register.store');
+Route::post('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verify'])->name('verify.post');
+
 Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHistory']], function(){
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.dashboard');
     // ------------------------------ register ---------------------------------//
-    Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
-    Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'storeUser'])->name('register.store');
-    Route::post('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verify'])->name('verify.post');
+
     // ----------------------------- lock screen --------------------------------//
     Route::get('lock_screen', [App\Http\Controllers\LockScreen::class, 'lockScreen'])->name('lock_screen');
     Route::post('unlock', [App\Http\Controllers\LockScreen::class, 'unlock'])->name('unlock');
