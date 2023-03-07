@@ -87,6 +87,8 @@ Route::group(['prefix'=>'merchant', 'middleware'=>['merchant','auth','PreventBac
     Route::post('bulk-payment', [App\Http\Controllers\Merchant\TransactionsController::class, 'process_payout'])->name('merchant.import');
 
     Route::get('payment-history', [App\Http\Controllers\Merchant\TransactionsController::class, 'payout_logs'])->name('merchant.payout.history');
+
+    Route::get('merchant-profile', [App\Http\Controllers\Merchant\ProfileController::class, 'profile'])->name('merchant.profile');
     
     Route::post('paiement-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'paiementMultiple'])->name('merchant.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'deleteMultiple'])->name('merchant.payout.delete.multiple');
