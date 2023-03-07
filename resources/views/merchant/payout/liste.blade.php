@@ -418,7 +418,7 @@
                 console.log(strIds);
                 Swal.fire({
                     title:"Confirmation",
-                    text:"<span style="color:#0000">Do you want to proceed with the payment?<span>",
+                    text:"<span style='color:#0000'>Do you want to proceed with the payment?<span>",
                     html: true,
                     showDenyButton:!0,
                     showCancelButton:!0,
