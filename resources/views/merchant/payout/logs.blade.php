@@ -29,11 +29,11 @@
                             <thead class="table-light text-muted">
                                 <tr>
                                     <th class="text-left">Customer</th>
-                                    <th class="text-center">Amount</th>
+                                    <th class="text-left">Amount</th>
                                     <th class="text-left">Action</th>
-                                    <th class="text-left">Transaction_ID</th>
-                                    <th class="text-left">Reference FP</th>
-                                    <th class="text-left">Telco. Ref</th>
+                                    <th class="text-left">Merchant Reference</th>
+                                    <th class="text-left">Freshpay Reference</th>
+                                    <th class="text-left">Telcom Reference</th>
                                     <th class="text-left">Status</th>
                                     <th class="text-left">Description</th>
                                     <th class="text-left">Created_at</th>
@@ -97,15 +97,15 @@
                 buttons: [
                         {
                             extend: 'csv',
-                            filename: 'Payout_report_' + n
+                            filename: 'Payment.History.' + n
                         },
                         {
                             extend: 'excel',
-                            filename: 'Payout_report_' + n
+                            filename: 'Payment.History.' + n
                         },
                         {
                             extend: 'pdf',
-                            filename: 'Payout_report_' + n
+                            filename: 'Payment.History.' + n
                         }
                     ],
                 lengthMenu: [
