@@ -91,20 +91,13 @@ Route::group(['prefix'=>'merchant', 'middleware'=>['merchant','auth','PreventBac
     Route::get('merchant-profile', [App\Http\Controllers\Merchant\ProfileController::class, 'profile'])->name('merchant.profile');
     
     Route::get('merchant-profile-edit', [App\Http\Controllers\Merchant\ProfileController::class, 'edit_profile'])->name('merchant.profile.edit');
-    Route::post('merchant-profile-edit', [App\Http\Controllers\Merchant\ProfileController::class, 'update_profile'])->name('merchant.profile.update');
     
     Route::post('paiement-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'paiementMultiple'])->name('merchant.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'deleteMultiple'])->name('merchant.payout.delete.multiple');
 
     // ----------------------------- lock screen --------------------------------//
-    Route::get('lock_screen', [App\Http\Controllers\LockScreen::class, 'lockScreen'])->name('merchant.lock_screen');
-    Route::post('unlock', [App\Http\Controllers\LockScreen::class, 'unlock'])->name('merchant.unlock');
-    // ----------------------------- forget password ----------------------------//
-    Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('merchant.forget-password');
-    Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('merchant.forget-password');
-    // ----------------------------- reset password -----------------------------//
-    Route::get('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword'])->name('merchant.getPassword');
-    Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('merchant.updatePassword');
+    Route::get('change-password', [App\Http\Controllers\Merchant\AccountsController::class, 'changePassword'])->name('merchant.change-password');
+    Route::post('change-password', [App\Http\Controllers\Merchant\AccountsController::class, 'updatePassword'])->name('merchant.update-password');
 
 });
 

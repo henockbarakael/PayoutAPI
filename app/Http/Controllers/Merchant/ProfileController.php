@@ -18,8 +18,4 @@ class ProfileController extends Controller
         $user = User::where('id', Auth::user()->id)->first();
         return view('merchant.user.edit_profile', compact('user'));
     }
-
-    public function update_profile(Request $request){
-        
-    }
 }

@@ -40,6 +40,10 @@
                 </div>
             </div>
 
+            <section id="loading">
+                <div id="loading-content"></div>
+            </section>
+
             <div class="row">
                 <div class="col-xxl-3">
                     <div class="card mt-n5">
@@ -94,14 +98,14 @@
                             <div class="tab-content">
 
                                 <div class="tab-pane active" id="changePassword" role="tabpanel">
-                                    <form method="POST" action="{{route('merchant.updatePassword')}}">
-                                        @csrf
+                                    <form method="POST" id="postForm">
+                                        {{-- @csrf --}}
                                         <div class="row g-2">
                                             <div class="col-lg-4">
                                                 <div>
                                                     <label for="oldpasswordInput" class="form-label">Old Password*</label>
-                                                    <input type="password" class="form-control @error('oldpassword') is-invalid @enderror" name="oldpassword" placeholder="Enter current password">
-                                                    @error('oldpassword')
+                                                    <input type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" placeholder="Enter current password" required>
+                                                    @error('old_password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ __('Password is required') }}</strong>
                                                         </span>
@@ -112,7 +116,7 @@
                                             <div class="col-lg-4">
                                                 <div>
                                                     <label for="newpasswordInput" class="form-label">New Password*</label>
-                                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter new password">
+                                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter new password" required>
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ __('Password is required') }}</strong>
@@ -124,7 +128,7 @@
                                             <div class="col-lg-4">
                                                 <div>
                                                     <label for="confirmpasswordInput" class="form-label">Confirm Password*</label>
-                                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm password">
+                                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -164,9 +168,79 @@
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <!-- swiper js -->
     <script src="{{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
     <!-- profile init js -->
     <script src="{{ asset('assets/js/pages/profile.init.js') }}"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ajaxStart(function() {
+            $('#loading').addClass('loading');
+            $('#loading-content').addClass('loading-content');
+        });
+
+        $(document).ajaxStop(function() {
+            $('#loading').removeClass('loading');
+            $('#loading-content').removeClass('loading-content');
+        });
+    </script>
+    <script type="text/javascript">
+  
+        $("#postForm").submit(function(e){
+            e.preventDefault();
+            var passworddata = $(this).serialize();
+            $.ajax({
+                url: "{{route('merchant.update-password')}}",
+                type: "POST",
+                cache: false,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: passworddata,
+                dataType: 'json',
+                success: function (responseOutput) {
+                    if (responseOutput['success']==true) {
+                        toastr.success(responseOutput['message'], 'Success Alert', {
+                            timeOut: 1800,
+                            fadeOut: 1800,
+                            onHidden: function () {
+                                window.location.reload();
+                            }
+                        });
+                        $("#postForm")[0].reset();
+                    }
+                    else if(responseOutput['success']==false){
+                        // Swal.fire(responseOutput['message'], '', 'error')
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'middle',
+                            showConfirmButton: false,
+                            showClass: {
+                                popup: `
+                                animate__animated
+                                animate__fadeInDown
+                                animate__faster
+                                `
+                            },
+                            hideClass: {
+                                popup: `
+                                animate__animated
+                                animate__fadeOutUp
+                                animate__faster
+                                `
+                            },
+                            timer: 5000
+                        });
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: "<span style='color:SteelBlue'>"+responseOutput['message']+"<span>"
+                        })
+                        $("#postForm")[0].reset();
+                    }
+                }
+            });
+        });
+          
+    </script>
     @endsection
 @endsection
