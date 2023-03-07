@@ -282,28 +282,28 @@
                         $('#fupForm')[0].reset();
                         $("#pay-all").hide();
 
-                        // Swal.fire({
-                        //         text: response.message,
-                        //         icon: "error",
-                        //         buttonsStyling: false,
-                        //         confirmButtonText: "Ok, got it!",
-                        //         customClass: {
-                        //             confirmButton: "btn btn-primary"
-                        //         }
-                        // }).then(function (result) {
-                        //     if (result.isConfirmed) { 
-                        //         // modal.hide();
-                        //         location.reload();	
-                        //     }
-                        // });
-                      
-                        toastr.error(response.message, 'Error Alert', {
-                            timeOut: 5200,
-                            fadeOut: 5200,
-                            onHidden: function () {
-                            // window.location.reload();
+                        Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: "Ok, got it!",
+                                showCancelButton: true,
+                        }).then(function (result) {
+                            if (result.isConfirmed) { 
+                                // modal.hide();
+                                location.reload();	
                             }
                         });
+                      
+                        // toastr.error(response.message, 'Error Alert', {
+                        //     timeOut: 5200,
+                        //     fadeOut: 5200,
+                        //     onHidden: function () {
+                        //     // window.location.reload();
+                        //     }
+                        // });
                         location.reload();
                     }
                 },
