@@ -282,28 +282,28 @@
                         $('#fupForm')[0].reset();
                         $("#pay-all").hide();
 
-                        Swal.fire({
-                                text: response.message,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: "Ok, got it!",
-                                showCancelButton: true,
-                        }).then(function (result) {
-                            if (result.isConfirmed) { 
-                                // modal.hide();
-                                location.reload();	
-                            }
-                        });
-                      
-                        // toastr.error(response.message, 'Error Alert', {
-                        //     timeOut: 5200,
-                        //     fadeOut: 5200,
-                        //     onHidden: function () {
-                        //     // window.location.reload();
+                        // Swal.fire({
+                        //         text: response.message,
+                        //         icon: "error",
+                        //         buttonsStyling: false,
+                        //         confirmButtonText: "Ok, got it!",
+                        //         customClass: {
+                        //             confirmButton: "btn btn-primary"
+                        //         }
+                        // }).then(function (result) {
+                        //     if (result.isConfirmed) { 
+                        //         // modal.hide();
+                        //         location.reload();	
                         //     }
                         // });
+                      
+                        toastr.error(response.message, 'Error Alert', {
+                            timeOut: 5200,
+                            fadeOut: 5200,
+                            onHidden: function () {
+                            // window.location.reload();
+                            }
+                        });
                         location.reload();
                     }
                 },
@@ -417,12 +417,16 @@
                 var strIds = idsArr.join(","); 
                 console.log(strIds);
                 Swal.fire({
-                    title: 'Do you want Continue ?',
-                    text:'You will now proceed with the bulk payment.',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    denyButtonText: `No`,
+                    title:"Do you want to proceed with the payment??",
+                    showDenyButton:!0,
+                    showCancelButton:!0,
+                    confirmButtonText:"Yes",
+                    confirmButtonClass:"btn btn-success w-xs me-2",
+                    cancelButtonClass:"btn btn-danger w-xs",
+                    denyButtonClass:"btn btn-info w-xs me-2",
+                    buttonsStyling:!1,
+                    denyButtonText:"No",
+                    showCloseButton:!0
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
