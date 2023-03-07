@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.payout.history')}}">
-                        <i class="ri-file-history-fill"></i> <span data-key="t-widgets">Transaction History</span>
+                        <i class="ri-file-history-fill"></i> <span data-key="t-widgets">Payment History</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -74,7 +74,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('merchant.payout.history')}}">
-                        <i class="bx bx-list-ul"></i> <span data-key="t-widgets">Transaction History</span>
+                        <i class="bx bx-list-ul"></i> <span data-key="t-widgets">Payment History</span>
                     </a>
                 </li>
                 @endif
