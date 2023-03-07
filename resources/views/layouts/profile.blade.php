@@ -1,31 +1,29 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-layout="vertical" data-topbar="dark" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
-
+<html data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-layout-mode="dark" data-layout-width="fluid" data-layout-position="fixed" data-layout-style="default" lang="en">
 <head>
-
     <meta charset="utf-8" />
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Freshpay Airtime" name="description" />
-    <meta content="Freshpay Bakery" name="FreshPay Bakery" />
-    <!-- App favicon -->
+    <meta content="FreshPay Bulk Payment Portal" name="description" />
+    <meta content="Autor" name="FreshPay Congo" />
+    <meta name="keywords" content="Freshpay, Bulk Payment, Payment">
+    <meta property="og:image" content="http://bulkpayment.gofreshpay.com/assets/images/freshpay.png" />
+    <meta property="og:image:secure_url" content="https://bulkpayment.gofreshpay.com/assets/images/freshpay.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:alt" content="FreshPay Congo" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}">
-
-    <!-- Layout config Js -->
+    <link rel="stylesheet" href="{{ asset('assets/libs/swiper/swiper-bundle.min.css') }}">
     <script src="{{ asset('assets/js/layout.js') }}"></script>
-    <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- message toastr -->
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
     <script src="{{ asset('assets/js/toastr_jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-
 </head>
 
 <body>
@@ -63,24 +61,8 @@
     </button>
     <!--end back-to-top-->
 
-
-    <!-- Theme Settings -->
-
-
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins.js') }}"></script>
-    <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-    <!-- projects js -->
-    <script src="{{ asset('assets/js/pages/dashboard-projects.init.js') }}"></script>
-    <!-- App js -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <!-- Theme Settings -->  
+    @yield('script')
 </body>
 
 </html>

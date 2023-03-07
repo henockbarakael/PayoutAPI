@@ -5,8 +5,15 @@
     <meta charset="utf-8" />
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Payout Gateway System Cd." name="description" />
-    <meta content="Autor" name="Henock BARAKAEL" />
+    <meta content="FreshPay Bulk Payment Portal" name="description" />
+    <meta content="Autor" name="FreshPay Congo" />
+    <meta name="keywords" content="Freshpay, Bulk Payment, Payment">
+    <meta property="og:image" content="http://bulkpayment.gofreshpay.com/assets/images/freshpay.png" />
+    <meta property="og:image:secure_url" content="https://bulkpayment.gofreshpay.com/assets/images/freshpay.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:alt" content="FreshPay Congo" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}">
