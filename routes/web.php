@@ -90,6 +90,9 @@ Route::group(['prefix'=>'merchant', 'middleware'=>['merchant','auth','PreventBac
 
     Route::get('merchant-profile', [App\Http\Controllers\Merchant\ProfileController::class, 'profile'])->name('merchant.profile');
     
+    Route::get('merchant-profile-edit', [App\Http\Controllers\Merchant\ProfileController::class, 'edit_profile'])->name('merchant.profile.edit');
+    Route::post('merchant-profile-edit', [App\Http\Controllers\Merchant\ProfileController::class, 'update_profile'])->name('merchant.profile.update');
+    
     Route::post('paiement-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'paiementMultiple'])->name('merchant.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'deleteMultiple'])->name('merchant.payout.delete.multiple');
 
