@@ -1,69 +1,48 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-layout="vertical" data-topbar="dark" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
+<html class="no-js" lang="">
 
 <head>
-
-    <meta charset="utf-8" />
-    <title>@yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Payout Gateway System Cd." name="description" />
-    <meta content="Freshpay Bakery" name="Henock BARAKAEL" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/icon1.png') }}">
-    <!-- Layout config Js -->
-    <script src="{{ asset('assets/js/layout.js') }}"></script>
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- message toastr -->
-    <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
-    <script src="{{ asset('assets/js/toastr_jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Xmee | Login and Register Form Html Templates</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('login/favicon.png') }}">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ asset('login/css/bootstrap.min.css') }}">
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{{ asset('login/css/fontawesome-all.min.css') }}">
+	<!-- Flaticon CSS -->
+	<link rel="stylesheet" href="{{ asset('login/font/flaticon.css') }}">
+	<!-- Google Web Fonts -->
+	<link href="{{ asset('login/css2?family=Roboto:300,400,500,700&display=swap') }}" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{{ asset('login/style.css') }}">
 </head>
 
 <body>
-
-    <!-- auth-page wrapper -->
-    <div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100">
-        <div class="bg-overlay"></div>
-        <!-- auth-page content -->
-        @yield('content')
-        <!-- end auth page content -->
-
-        <!-- footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <p class="mb-0">&copy;
-                                <script>document.write(new Date().getFullYear())</script> © Freshpay Airtime V1.0. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a class="text-white" href="https://barawebdesign.com" target="_blank">Barawebdesign</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end Footer -->
+	<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="preloader" class="preloader">
+        <div class='inner'>
+            <div class='line1'></div>
+            <div class='line2'></div>
+            <div class='line3'></div>
+        </div>
     </div>
-    <!-- end auth-page-wrapper -->
-
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins.js') }}"></script>
-
-    <!-- password-addon init -->
-    <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
+    @yield('content')
+	<!-- jquery-->
+	<script src="{{ asset('login/js/jquery-3.5.0.min.js') }}"></script>
+	<!-- Bootstrap js -->
+	<script src="{{ asset('login/js/bootstrap.min.js') }}"></script>
+	<!-- Imagesloaded js -->
+	<script src="{{ asset('login/js/imagesloaded.pkgd.min.js') }}"></script>
+	<!-- Validator js -->
+	<script src="{{ asset('login/js/validator.min.js') }}"></script>
+	<!-- Custom Js -->
+	<script src="{{ asset('login/js/main.js') }}"></script>
 </body>
 
 </html>
