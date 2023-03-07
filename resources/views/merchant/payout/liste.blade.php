@@ -417,7 +417,7 @@
                 var strIds = idsArr.join(","); 
                 console.log(strIds);
                 Swal.fire({
-                    title:"Confirmation",
+                    title:"<span style='color:red'>Confirmation<span>",
                     text:"<span style='color:#0000'>Do you want to proceed with the payment?<span>",
                     html: true,
                     showDenyButton:!0,
