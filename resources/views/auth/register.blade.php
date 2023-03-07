@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','FreshPay Bulk Payment | Register')
 @section('content')
 {!! Toastr::message() !!}
 <section class="fxt-template-animation fxt-template-layout11">
@@ -8,7 +8,7 @@
             <div class="col-xl-6 col-lg-7 col-sm-12 col-12 fxt-bg-color">
                 <div class="fxt-content">
                     <div class="fxt-header">
-                        <a href="login-11.html" class="fxt-logo"><img src="{{ asset('login/img/freshpay.png') }}" alt="Logo"></a>
+                        <a href="{{route('login')}}" class="fxt-logo"><img src="{{ asset('login/img/freshpay.png') }}" alt="Logo"></a>
                         <p>Login into your account</p>
                     </div>
                     <div class="fxt-form">
