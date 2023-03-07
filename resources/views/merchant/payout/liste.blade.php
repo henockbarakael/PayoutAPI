@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Liste - Marchand')
+@section('title','Bulk Payment')
 @section('page','Bulk Payment')
 @section('page-inner','Transaction list')
 @section('content')
