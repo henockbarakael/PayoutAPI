@@ -19,6 +19,9 @@
 	<link href="{{ asset('login/css2?family=Roboto:300,400,500,700&display=swap') }}" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="{{ asset('login/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
+    <script src="{{ asset('assets/js/toastr_jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 </head>
 
 <body>
