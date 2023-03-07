@@ -34,11 +34,11 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <div class="position-relative mx-n4 mt-n4">
+            {{-- <div class="position-relative mx-n4 mt-n4">
                 <div class="profile-wid-bg profile-setting-img">
                     <img src="{{ asset('assets/images/cover-pattern.png') }}" class="profile-wid-img" alt="">
                 </div>
-            </div>
+            </div> --}}
 
             <div class="row">
                 <div class="col-xxl-3">
