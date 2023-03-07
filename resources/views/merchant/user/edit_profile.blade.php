@@ -132,11 +132,11 @@
                                                 </div>
                                             </div>
                                             <!--end col-->
-                                            <div class="col-lg-12">
+                                            {{-- <div class="col-lg-12">
                                                 <div class="mb-3">
                                                     <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <!--end col-->
                                             <div class="col-lg-12">
                                                 <div class="text-end">
