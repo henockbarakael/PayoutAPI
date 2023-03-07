@@ -9,7 +9,7 @@
                 <div class="fxt-content">
                     <div class="fxt-header">
                         <a href="{{route('login')}}" class="fxt-logo"><img src="{{ asset('login/img/freshpay.png') }}" alt="Logo"></a>
-                        <p>Login into your account</p>
+                        <p>Create a new account</p>
                     </div>
                     <div class="fxt-form">
                         <form method="POST" action="{{route('register')}}">
