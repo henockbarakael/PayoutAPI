@@ -3,6 +3,7 @@
 @section('page','Home')
 @section('page-inner','Dashboard')
 @section('content')
+{!! Toastr::message() !!}
 <div class="page-content">
     <div class="container-fluid">
 
