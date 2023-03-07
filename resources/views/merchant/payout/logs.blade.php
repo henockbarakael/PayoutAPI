@@ -1,7 +1,7 @@
 @extends('layouts.master')
-@section('title','Payout report')
-@section('page','PAYOUT REPORT')
-@section('page-inner','Payout Logs')
+@section('title','Bulk Payment History')
+@section('page','Payment History')
+@section('page-inner','Payment History')
 @section('content')
 {!! Toastr::message() !!}
 <div class="page-content">
@@ -18,7 +18,7 @@
                         <div class="row g-4 align-items-center">
                             <div class="col-sm">
                                 <div>
-                                    <h5 class="card-title mb-0">PAYOUT LOGS</h5>
+                                    <h5 class="card-title mb-0">Payment History</h5>
                                 </div>
                             </div>
                         </div>
