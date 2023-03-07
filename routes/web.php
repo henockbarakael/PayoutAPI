@@ -103,8 +103,8 @@ Route::group(['prefix'=>'merchant', 'middleware'=>['merchant','auth','PreventBac
     Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('merchant.forget-password');
     Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('merchant.forget-password');
     // ----------------------------- reset password -----------------------------//
-    Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'merchant.getPassword']);
-    Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'merchant.updatePassword']);
+    Route::get('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword'])->name('merchant.getPassword');
+    Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('merchant.updatePassword');
 
 });
 
