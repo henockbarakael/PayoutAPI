@@ -365,8 +365,8 @@
                 var strIds = idsArr.join(","); 
                 console.log(strIds);
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text:'It will permanently deleted !',
+                    title: "<span style='color:SteelBlue'>Are you sure?<span>",
+                    text:"<span style='color:SteelBlue'>It will permanently deleted <span>",
                     showDenyButton: true,
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete all!',
