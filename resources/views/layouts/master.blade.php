@@ -39,7 +39,7 @@
     <!--datatable responsive css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-    <meta http-equiv="script-src 'self' https://bulkpayment.gofreshpay.com 'unsafe-inline' 'sha256-lD5GlZIyY2huRMSRPdQ1B0C4+WrMbTDgZzvCFgpC5j8=' *" />
+    
 </head>
 
 <body>
