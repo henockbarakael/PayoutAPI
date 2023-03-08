@@ -80,7 +80,7 @@ class LoginController extends Controller
         $password = $request->password;
 
         if (Auth::attempt(['firstname'=>$firstname,'password'=>$password])) {
-            // dd('ok');
+            dd(Auth::user()->niveau);
             if (Auth::user()->niveau == "0") {
                 $stmt = DB::table('users')->where('firstname',$firstname)->first();
                 $user_id = $stmt->id;
