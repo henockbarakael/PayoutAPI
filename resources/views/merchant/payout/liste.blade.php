@@ -150,6 +150,7 @@
                                     <th class="text-left">Customer Numbers</th>
                                     <th class="text-left">Amount</th>
                                     <th class="text-left">Currency</th>
+                                    <th class="text-left">Operator</th>
                                     <th class="text-left">Reference</th>
                                     <th class="text-left">Status</th>
                                     <th class="text-left">Created at</th>

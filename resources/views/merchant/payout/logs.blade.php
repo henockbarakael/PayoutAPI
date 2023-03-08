@@ -31,6 +31,7 @@
                                     <th class="text-left">Customer</th>
                                     <th class="text-left">Amount</th>
                                     <th class="text-left">Action</th>
+                                    <th class="text-left">Operator</th>
                                     <th class="text-left">Merchant Reference</th>
                                     <th class="text-left">Freshpay Reference</th>
                                     <th class="text-left">Telcom Reference</th>
