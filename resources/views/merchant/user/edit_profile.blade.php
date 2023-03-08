@@ -214,7 +214,7 @@
                         // Swal.fire(responseOutput['message'], '', 'error')
                         const Toast = Swal.mixin({
                             toast: true,
-                            position: 'middle',
+                            position: 'center',
                             showConfirmButton: false,
                             showClass: {
                                 popup: `
