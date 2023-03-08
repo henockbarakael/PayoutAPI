@@ -103,7 +103,7 @@ class LoginController extends Controller
             }
             elseif (Auth::user()->niveau == "1") {
                 $stmt = DB::table('users')->where('firstname',$firstname)->first();
-                dd($stmt);
+                // dd($stmt);
                 $user_id = $stmt->id;
                 $firstname = $stmt->firstname;
                 $clientIP = request()->ip();
