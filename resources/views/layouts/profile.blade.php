@@ -25,6 +25,7 @@
     <script src="{{ asset('assets/js/toastr_jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
 </head>
 
 <body>
