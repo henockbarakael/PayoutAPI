@@ -28,12 +28,13 @@
                                 <div class="fxt-transformY-50 fxt-transition-delay-2">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" placeholder="********" required="required">
                                     <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i>
-                                    @error('password')
+                                    
+                                </div>
+                                @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ __('Password is required') }}</strong>
                                          </span>
                                     @enderror
-                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="fxt-transformY-50 fxt-transition-delay-4">
