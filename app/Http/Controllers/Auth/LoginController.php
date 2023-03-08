@@ -68,7 +68,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'firstname' => 'required|string|max:255',
             'password' => 'required|string|min:8',
