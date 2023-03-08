@@ -45,6 +45,7 @@
                                     <td class="text-left">{{ $item->customer_number}}</td>
                                     <td class="text-left">{{ $item->amount." ".$item->currency }}</td>
                                     <td class="text-left">{{ $item->action }}</td>
+                                    <td class="text-left">{{ $item->method }}</td>
                                     <td class="text-left">{{ $item->reference }}</td>
                                     <td class="text-left">{{ $item->transaction_id }}</td>
                                     <td class="text-left">{{ $item->telco_reference }}</td>

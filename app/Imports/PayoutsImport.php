@@ -55,6 +55,7 @@ class PayoutsImport implements ToModel
                 'credit_account' => $row[0],
                 'amount' => $row[1],
                 'currency' => $row[2],
+                'method' => $row[3],
                 "reference" => $reference,
                 "status" => "Pending",
                 'userid' => Auth::user()->id,

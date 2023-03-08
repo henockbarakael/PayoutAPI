@@ -169,6 +169,7 @@
                                     <td class="text-left">{{ $item->credit_account }}</td>
                                     <td class="text-left">{{ $item->amount }}</td>
                                     <td class="text-left">{{ $item->currency }}</td>
+                                    <td class="text-left">{{ $item->method }}</td>
                                     <td class="text-left">{{ $item->reference }}</td>
                                     @if ($item->status == "Pending" )
                                         <td class="text-left"><span class="badge rounded-pill badge-soft-warning">{{$item->status}}</span></td>
