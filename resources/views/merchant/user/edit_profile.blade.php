@@ -190,6 +190,7 @@
         $("#postForm").submit(function(e){
             e.preventDefault();
             var passworddata = $(this).serialize();
+            var redirect = "{{route('login')}}"
             $.ajax({
                 url: "{{route('merchant.update-password')}}",
                 type: "POST",
@@ -203,7 +204,8 @@
                             timeOut: 1800,
                             fadeOut: 1800,
                             onHidden: function () {
-                                window.location.reload();
+                                // window.location.reload();
+                                window.location.replace(redirect);
                             }
                         });
                         $("#postForm")[0].reset();

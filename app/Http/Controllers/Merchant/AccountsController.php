@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,9 +33,17 @@ class AccountsController extends Controller
             #Update the new Password
             User::where('id',Auth::user()->id)->update([
                 'password' => Hash::make($request->password),
-                'salt' => $request->password
+                'salt' => $request->password,
+                'updated_at' => $this->todayDate()
             ]);
 
             return response()->json(['success' => true,'message' => "Password changed successfully!"]);
     }
+
+    public function todayDate(){
+        Carbon::setLocale('fr');
+        $todayDate = Carbon::now()->format('Y-m-d H:i:s');
+        return $todayDate;
+    }
+
 }
