@@ -71,7 +71,7 @@ class LoginController extends Controller
         
         $request->validate([
             'firstname' => 'required|string|max:255',
-            'password' => 'required|string|max:8',
+            'password' => 'required|string|min:8',
         ]);
 
         $date       = Carbon::now();
