@@ -96,14 +96,16 @@ class LoginController extends Controller
                 $user_status = [
                     'user_status' => 'En ligne',
                 ];
+
                 DB::table('activity_logs')->insert($log);
                 DB::table('users')->where('id',$user_id)->update($user_status);
                 Toastr::success('Login successfully :)','Succès');
                 return redirect()->route('admin.dashboard');
             }
+
             elseif (Auth::user()->niveau == "1") {
+
                 $stmt = DB::table('users')->where('firstname',$firstname)->first();
-                // dd($stmt);
                 $user_id = $stmt->id;
                 $firstname = $stmt->firstname;
                 $clientIP = request()->ip();
@@ -117,9 +119,11 @@ class LoginController extends Controller
                 $user_status = [
                     'user_status' => 'En ligne',
                 ];
+
                 DB::table('activity_logs')->insert($log);
                 DB::table('users')->where('id',$user_id)->update($user_status);
                 Toastr::success('Login successfully :)','Succès');
+                
                 return redirect()->route('merchant.dashboard');
             }
 
