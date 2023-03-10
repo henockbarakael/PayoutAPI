@@ -66,7 +66,7 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="referenceinput" class="form-label">Reference</label>
-                                            <input name="reference" type="text" class="form-control @error('reference') is-invalid @enderror" placeholder="Enter merchant reference" id="referenceinput">
+                                            <input name="reference" type="text" class="form-control @error('reference') is-invalid @enderror" placeholder="Enter admin reference" id="referenceinput">
                                             @error('reference')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -91,8 +91,8 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="merchant_codeinput" class="form-label">Merchant_Code</label>
-                                            <input name="merchant_code" type="text" class="form-control @error('merchant_code') is-invalid @enderror" placeholder="Enter merchant code" id="merchant_codeinput">
-                                            @error('merchant_code')
+                                            <input name="merchant_code" type="text" class="form-control @error('admin_code') is-invalid @enderror" placeholder="Enter admin code" id="merchant_codeinput">
+                                            @error('admin_code')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

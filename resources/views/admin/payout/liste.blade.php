@@ -1,9 +1,34 @@
 @extends('layouts.master')
-@section('title','Liste - Marchand')
-@section('page','TICKETS')
-@section('page-inner','Tickets list')
+@section('title','Bulk Payment')
+@section('page','Bulk Payment')
+@section('page-inner','Transaction list')
 @section('content')
 <style type="text/css">
+    .loading {
+        z-index: 20;
+        position: absolute;
+        top: 0;
+        left:-5px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+    }
+    .loading-content {
+        position: absolute;
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        top: 40%;
+        left:50%;
+        animation: spin 2s linear infinite;
+        }
+          
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 </style>
 {!! Toastr::message() !!}
 <div class="page-content">
@@ -68,7 +93,7 @@
                         <div class="row g-4 align-items-center">
                             <div class="col-sm">
                                 <div>
-                                    <h5 class="card-title mb-0">TICKETS LIST</h5>
+                                    <h5 class="card-title mb-0">Transacton List</h5>
                                 </div>
                             </div>
                             <div class="col-sm-auto">
@@ -123,8 +148,10 @@
                                     </th>
                                     <th class="text-center">#</th>
                                     <th class="text-left">Customer Numbers</th>
-                                    <th class="text-center">Amount</th>
-                                    <th class="text-center">Currency</th>
+                                    <th class="text-left">Amount</th>
+                                    <th class="text-left">Currency</th>
+                                    <th class="text-left">Operator</th>
+                                    <th class="text-left">Reference</th>
                                     <th class="text-left">Status</th>
                                     <th class="text-left">Created at</th>
                                 </tr>
@@ -141,8 +168,10 @@
                                     </th>
                                     <td class="text-center">{{ $item->id }}</td>
                                     <td class="text-left">{{ $item->credit_account }}</td>
-                                    <td class="text-center">{{ $item->amount }}</td>
-                                    <td class="text-center">{{ $item->currency }}</td>
+                                    <td class="text-left">{{ $item->amount }}</td>
+                                    <td class="text-left">{{ $item->currency }}</td>
+                                    <td class="text-left">{{ $item->method }}</td>
+                                    <td class="text-left">{{ $item->reference }}</td>
                                     @if ($item->status == "Pending" )
                                         <td class="text-left"><span class="badge rounded-pill badge-soft-warning">{{$item->status}}</span></td>
                                     @else
@@ -187,27 +216,31 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{ asset('assets/js/pages/datatables.init.js')}}"></script>
     <script type="text/javascript">
-    // $('.loaders').show();
-        var $loading = $('.loaders').hide();
+  
+        /*------------------------------------------
+        --------------------------------------------
+        Add Loading When fire Ajax Request
+        --------------------------------------------
+        --------------------------------------------*/
         $(document).ajaxStart(function() {
-            $loading.show();
+            $('#loading').addClass('loading');
+            $('#loading-content').addClass('loading-content');
         });
+      
+        /*------------------------------------------
+        --------------------------------------------
+        Remove Loading When fire Ajax Request
+        --------------------------------------------
+        --------------------------------------------*/
         $(document).ajaxStop(function() {
-            $loading.hide();
+            $('#loading').removeClass('loading');
+            $('#loading-content').removeClass('loading-content');
         });
           
     </script>
     <script>
 
         $(document).ready( function() {
-            // console.log(document.querySelectorAll('.tbody-table').rows.length);
-            // const isEmpty = document.querySelectorAll('.tbody-table').rows.length;
-            // if (isEmpty == 0) {
-            //     $("#pay-all").hide();
-            // }
-            // else{
-            //     $("#pay-all").show();
-            // }
 
             var table = $('#fixed-header').DataTable();
 
@@ -225,50 +258,62 @@
                         $("#myprogress").show();
                         label_progress.html(percentage+'%');
                     },   
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentage = percentComplete;
+                    label_progress.html(percentage+'%');
+                    $('.progress .progress-bar').css("width", percentage+'%', function() { 
+                      return $(this).attr("aria-valuenow", percentage) + "%";
+                    })
+                },
+                success: function(response){
+                    if (response.success==true) {
+                        $('#fupForm')[0].reset();
+                        $("#pay-all").show();
+                        
+                        toastr.success(response.message, 'Success Alert', {
+                            timeOut: 1800,
+                            fadeOut: 1800,
+                            onHidden: function () {
+                            window.location.reload();
+                            // $('#fixed-header').load(document.URL +  ' #fixed-header');
+                            }
+                        });
+                        // location.reload();
+                    }
+                    else{
+                        $('#fupForm')[0].reset();
+                        $("#pay-all").hide();
 
-                    uploadProgress: function (event, position, total, percentComplete) {
-                        var percentage = percentComplete;
-                        label_progress.html(percentage+'%');
-                        $('.progress .progress-bar').css("width", percentage+'%', function() { 
-                          return $(this).attr("aria-valuenow", percentage) + "%";
-                        })
-                    },
-                    success: function(response){
-                        if (response.success==true) {
-                            $('#fupForm')[0].reset();
-                            $("#pay-all").show();
-                            // alert(response.message);
-                            toastr.success(response.message, 'Success Alert', {
-                                timeOut: 1800,
-                                fadeOut: 1800,
-                                onHidden: function () {
-                                // window.location.reload();
-                                $('#fixed-header').load(document.URL +  ' #fixed-header');
-                                }
-                            });
-                            // location.reload();
-                        }
-                        else{
-                            $('#fupForm')[0].reset();
-                            $("#pay-all").hide();
-                            // alert(response.message);
-                            toastr.error(response.message, 'Error Alert', {
-                                timeOut: 1800,
-                                fadeOut: 1800,
-                                onHidden: function () {
-                                window.location.reload();
-                                }
-                            });
-                            // location.reload();
-                        }
-                    
-                    },
-                    resetForm: true,
-                    complete: function (xhr) {
-                        console.log('File has uploaded');
-                        // $("#myprogress").hide();
-                    },
-                    
+                        // Swal.fire({
+                        //         text: response.message,
+                        //         icon: "error",
+                        //         buttonsStyling: false,
+                        //         confirmButtonText: "Ok, got it!",
+                        //         customClass: {
+                        //             confirmButton: "btn btn-primary"
+                        //         }
+                        // }).then(function (result) {
+                        //     if (result.isConfirmed) { 
+                        //         // modal.hide();
+                        //         location.reload();	
+                        //     }
+                        // });
+                      
+                        toastr.error(response.message, 'Error Alert', {
+                            timeOut: 5200,
+                            fadeOut: 5200,
+                            onHidden: function () {
+                            // window.location.reload();
+                            }
+                        });
+                        location.reload();
+                    }
+                },
+                resetForm: true,
+                complete: function (xhr) {
+                    console.log('File has uploaded');
+                    // $("#myprogress").hide();
+                },    
             });
             
             // $('#fupForm').submit(function(e) {
@@ -322,8 +367,7 @@
                 var strIds = idsArr.join(","); 
                 console.log(strIds);
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text:'It will permanently deleted !',
+                    title: "<span style='color:SteelBlue'>Are you sure? It will permanently deleted!<span>",
                     showDenyButton: true,
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete all!',
@@ -374,12 +418,17 @@
                 var strIds = idsArr.join(","); 
                 console.log(strIds);
                 Swal.fire({
-                    title: 'Do you want Continue ?',
-                    text:'You will now proceed with the bulk payment.',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    denyButtonText: `No`,
+                    title:"<span style='color:SteelBlue'>Do you want to proceed with the payment?<span>",
+                    // html: true,
+                    showDenyButton:!0,
+                    showCancelButton:!0,
+                    confirmButtonText:"Yes",
+                    confirmButtonClass:"btn btn-success w-xs me-2",
+                    cancelButtonClass:"btn btn-danger w-xs",
+                    denyButtonClass:"btn btn-info w-xs me-2",
+                    buttonsStyling:!1,
+                    denyButtonText:"No",
+                    showCloseButton:!0
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
@@ -412,7 +461,7 @@
                         });
                         // Swal.fire('Delete all!', '', 'success')
                     } else if (result.isDenied) {
-                        Swal.fire('Denied!', '', 'info')
+                        Swal.fire('Canceled!', '', 'info')
                     }
                 })
                  

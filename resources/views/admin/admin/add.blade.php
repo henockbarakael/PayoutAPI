@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title','Formulaire - Marchand')
-@section('page','Merchant')
+@section('page','Admin')
 @section('page-inner','Ajouter un marchand')
 @section('content')
 <div class="page-content">
@@ -13,7 +13,7 @@
             <div class="col-xxl-6">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Create Merchant</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Create Admin</h4>
                         <div class="flex-shrink-0">
                             <div class="form-check form-switch form-switch-right form-switch-md">
                                 <label for="form-grid-showcode" class="form-label text-muted">Show Code</label>
@@ -31,20 +31,20 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="nameInput" class="form-label text-muted">Name</label>
-                                            <input name="name" type="text" class="form-control" placeholder="Enter merchant name" id="nameInput">
+                                            <input name="name" type="text" class="form-control" placeholder="Enter admin name" id="nameInput">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="emailInput" class="form-label text-muted">Email</label>
-                                            <input name="email" type="email" class="form-control" placeholder="Enter merchant email" id="emailInput">
+                                            <input name="email" type="email" class="form-control" placeholder="Enter admin email" id="emailInput">
                                         </div>
                                     </div>
                                     <!--end col-->
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="phonenumberInput" class="form-label text-muted">Phone</label>
-                                            <input name="phone" type="tel" class="form-control" placeholder="Enter merchant phone" id="phonenumberInput">
+                                            <input name="phone" type="tel" class="form-control" placeholder="Enter admin phone" id="phonenumberInput">
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -78,7 +78,7 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="merchant_codeInput" class="form-label text-muted">Merchant_Code</label>
-                                            <input name="merchant_code" type="text" class="form-control" placeholder="Enter merchant_code" id="recruterInput">
+                                            <input name="merchant_code" type="text" class="form-control" placeholder="Enter admin_code" id="recruterInput">
                                         </div>
                                     </div>
                                     <!--end col-->

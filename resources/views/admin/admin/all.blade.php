@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title','Liste - Marchand')
-@section('page','All Merchant')
+@section('page','All Admin')
 @section('page-inner','Liste des marchands')
 @section('content')
 <div class="page-content">
@@ -96,7 +96,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @foreach ($merchants as $key => $item)
+                                        @foreach ($admins as $key => $item)
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
