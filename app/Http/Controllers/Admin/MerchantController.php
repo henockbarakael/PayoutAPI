@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\generateIDController;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr as FacadesToastr;
-use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,5 +59,42 @@ class MerchantController extends Controller
         Carbon::setLocale('fr');
         $todayDate = Carbon::now()->format('Y-m-d H:i:s');
         return $todayDate;
+    }
+
+    public function addUser(Request $request){
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'institution_name' => 'required|string',
+        ]);
+        $users = DB::table('users')->where('institution_name',$request->institution_name)->first();
+        $date       = Carbon::now();
+        $todayDate  = $date->toDayDateTimeString();
+
+        $generateID = new generateIDController;
+        $password = $generateID->password();
+
+        User::create([
+            'merchant_id' => $users->merchant_id,
+            'merchant_code' => $users->merchant_code,
+            'merchant_secrete' => $users->merchant_secrete,
+            'institution_code' => $users->institution_code,
+            'institution_name' => $users->institution_name,
+            'firstname' => $users->firstname,
+            'lastname' => $users->lastname,
+            'email' => $users->email,
+            'salt'     => $password,
+            'niveau'     => $users->niveau,
+            'password' => Hash::make($password),
+            'avatar'   => "user.png",
+            'user_status' => 'Hors ligne',
+            'status' => 'Active',
+            'role_name' => $users->role_name,
+            'created_at'   => $todayDate,
+            'updated_at'   => $todayDate,
+        ]);
+        FacadesToastr::success('Create new account successfully :)','Success');
+        return redirect()->route('admin.merchant.user.list');
+
     }
 }
