@@ -8,6 +8,7 @@ use Brian2694\Toastr\Facades\Toastr as FacadesToastr;
 use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +20,7 @@ class MerchantController extends Controller
     }
 
     public function merchantUser(){
-        $users = User::select('institution_name')->get();
+        $users = DB::table('users')->select('institution_name')->get();
         dd($users);
         return view('admin.user.all', compact('users'));
     }
