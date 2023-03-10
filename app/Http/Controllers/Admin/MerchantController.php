@@ -33,11 +33,11 @@ class MerchantController extends Controller
 
             #Match The Old Password
             if(!Hash::check($request->old_password, auth()->user()->password)){
-                return response()->json(['success' => false,'message' => "Old Password Doesn't match!"]);
+                FacadesToastr::error('Old Password Doesn\'t match!','Error');
             }
 
             #Update the new Password
-            User::where('id', $request->id)->update([
+            User::where('id', $request->user_id)->update([
                 'password' => Hash::make($request->password),
                 'salt' => $request->password,
                 'updated_at' => $this->todayDate()
