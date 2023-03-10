@@ -63,7 +63,9 @@ class MerchantController extends Controller
     }
 
     public function merchantAdd(Request $request){
-        dd($avatar = time().'.'.$request->avatar->extension());
+        $avatar = time().'.'.$request->avatar->extension();  
+
+        dd($request->avatar->move(public_path('assets/images/users'), $avatar));
         $request->validate([
             'merchant_code' => 'required|string|max:255',
             'merchant_secrete' => 'required|string|max:255',
