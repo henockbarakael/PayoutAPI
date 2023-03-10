@@ -69,7 +69,7 @@
                             @csrf
                             <input type="hidden" name="user_id" id="e_id" value="">
                             <div class="mb-2">
-                                <input autocomplete="off" type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
+                                <input autocomplete="old_password" type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
                                 @error('old_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
@@ -77,7 +77,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input autocomplete="off" type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter current password" required>
+                                <input autocomplete="new_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter new password" required>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
