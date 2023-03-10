@@ -65,11 +65,11 @@
                 <div class="modal-content border-0 overflow-hidden">
                     <div class="modal-body p-5">
                         <h5 class="mb-3">Change Password</h5>
-                        <form method="POST" action="{{route('admin.update-password')}}">
+                        <form method="POST" action="{{route('admin.update-password')}}" autocomplete="off">
                             @csrf
                             <input type="hidden" name="user_id" id="e_id" value="">
                             <div class="mb-2">
-                                <input autocomplete="old_password" type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
+                                <input autocomplete="off" type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
                                 @error('old_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
