@@ -22,12 +22,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th hidden>ID</th>
                                     <th>Institution</th>
                                     <th>Firstname</th>
                                     <th>Lastname</th>
-                                    <th>Téléphone</th>
+                                    <th>Phone</th>
                                     <th>Password</th>
-                                    <th>Rôle</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Created at</th>
                                     <th class="text-center">Action</th>
@@ -37,6 +38,7 @@
                                 @foreach ($users as $key => $item)
                                 <tr>
                                     <td>{{++$key}}</td>
+                                    <td hidden>{{ $item->id }}</td>
                                     <td>{{ $item->institution_name }}</td>
                                     <td>{{ $item->firstname }}</td>
                                     <td>{{ $item->lastname }}</td>
