@@ -77,7 +77,7 @@
                 <div class="modal-content border-0 overflow-hidden">
                     <div class="modal-body p-5">
                         <h5 class="mb-3">New Merchant</h5>
-                        <form method="POST" action="{{route('admin.add.merchant')}}">
+                        <form method="POST" action="{{route('admin.add.merchant')}}" enctype="multipart/form-data">
                             @csrf
                             {{-- <input type="hidden" name="user_id" id="e_id" value=""> --}}
                             <div class="mb-2">
