@@ -45,8 +45,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHisto
     Route::post('paiement-multiple', [App\Http\Controllers\Admin\TransactionsController::class, 'paiementMultiple'])->name('admin.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Admin\TransactionsController::class, 'deleteMultiple'])->name('admin.payout.delete.multiple');
 
-    Route::get('change-password', [App\Http\Controllers\Admin\AccountsController::class, 'changePassword'])->name('admin.change-password');
-    Route::post('change-password', [App\Http\Controllers\Admin\AccountsController::class, 'updatePassword'])->name('admin.update-password');
+    // Route::get('change-password', [App\Http\Controllers\Admin\MerchantController::class, 'changePassword'])->name('admin.change-password');
+    Route::post('merchant-list', [App\Http\Controllers\Admin\MerchantController::class, 'updatePassword'])->name('admin.update-password');
 
 });
 
