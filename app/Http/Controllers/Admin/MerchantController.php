@@ -63,10 +63,9 @@ class MerchantController extends Controller
     }
 
     public function merchantAdd(Request $request){
-        // $avatar = time().'.'.$request->avatar->extension();  
 
-        // dd($request->avatar->move(public_path('assets/images/users'), $avatar));
         $request->validate([
+            'email' => 'required|string|max:255',
             'merchant_code' => 'required|string|max:255',
             'merchant_secrete' => 'required|string|max:255',
             'avatar' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
@@ -99,7 +98,7 @@ class MerchantController extends Controller
             'institution_name' => $result[0]['institution_name'],
             'firstname' => $result[0]['firstname'],
             'lastname' => $result[0]['lastname'],
-            'email' => $result[0]['email'],
+            'email' => $request->email,
             'salt'     => $password,
             'niveau'     => "1",
             'password' => Hash::make($password),

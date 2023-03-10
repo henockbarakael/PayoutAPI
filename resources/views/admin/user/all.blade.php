@@ -97,6 +97,15 @@
                                 @enderror
                             </div>
                             <div class="mb-2">
+                                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" name="email" placeholder="E-mail" required="required">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('E-mail is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-2">
+                                <label for="avatar" class="col-form-label">Avatar:</label>
                                 <input required  class="form-control @error('avatar') is-invalid @enderror" type="file" name="avatar" id="avatar">
                                 @error('avatar')
                                     <span class="invalid-feedback" role="alert">
@@ -104,7 +113,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            
                             <div class="mb-2">
+                                <label for="logo" class="col-form-label">Logo:</label>
                                 <input required  class="form-control @error('logo') is-invalid @enderror" type="file" name="logo" id="logo">
                                 @error('logo')
                                     <span class="invalid-feedback" role="alert">
