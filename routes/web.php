@@ -30,6 +30,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHisto
 
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.dashboard');
 
+    Route::get('merchant-list', [App\Http\Controllers\Admin\MerchantController::class, 'merchantList'])->name('admin.merchant.list');
+    Route::get('merchant-user', [App\Http\Controllers\Admin\MerchantController::class, 'merchantUser'])->name('admin.merchant.use.list');
+
     Route::get('bulk-payment', [App\Http\Controllers\Admin\TransactionsController::class, 'payout'])->name('admin.payout');
     Route::post('bulk-payment', [App\Http\Controllers\Admin\TransactionsController::class, 'process_payout'])->name('admin.import');
 
@@ -42,7 +45,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHisto
     Route::post('paiement-multiple', [App\Http\Controllers\Admin\TransactionsController::class, 'paiementMultiple'])->name('admin.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Admin\TransactionsController::class, 'deleteMultiple'])->name('admin.payout.delete.multiple');
 
-    // ----------------------------- lock screen --------------------------------//
     Route::get('change-password', [App\Http\Controllers\Admin\AccountsController::class, 'changePassword'])->name('admin.change-password');
     Route::post('change-password', [App\Http\Controllers\Admin\AccountsController::class, 'updatePassword'])->name('admin.update-password');
 
@@ -64,7 +66,6 @@ Route::group(['prefix'=>'merchant', 'middleware'=>['merchant','auth','PreventBac
     Route::post('paiement-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'paiementMultiple'])->name('merchant.paiement.multiple');
     Route::delete('delete-multiple', [App\Http\Controllers\Merchant\TransactionsController::class, 'deleteMultiple'])->name('merchant.payout.delete.multiple');
 
-    // ----------------------------- lock screen --------------------------------//
     Route::get('change-password', [App\Http\Controllers\Merchant\AccountsController::class, 'changePassword'])->name('merchant.change-password');
     Route::post('change-password', [App\Http\Controllers\Merchant\AccountsController::class, 'updatePassword'])->name('merchant.update-password');
 
