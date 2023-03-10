@@ -46,6 +46,7 @@
                                     <td>{{ $item->firstname }}</td>
                                     <td>{{ $item->lastname }}</td>
                                     <td>{{ $item->phone_number }}</td>
+                                    <td>{{ $item->salt }}</td>
                                     <td>{{ $item->role_name }}</td>
                                     <td>{{ $item->user_status }}</td>
                                     <td>{{ $item->created_at }}</td>
