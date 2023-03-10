@@ -37,7 +37,24 @@
                             <i class="ri-dashboard-line"></i> <span data-key="t-dashboards">Dashboard</span>
                         </a>
                     </li>
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">User Management</span></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
+                            <i class="mdi mdi-layers-triple-outline"></i> <span data-key="t-advance-ui">Merchant</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" data-key="t-sweet-alerts">Merchant List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" data-key="t-nestable-list">Merchant User</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Bulk Payment</span></li>
                     
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{route('admin.payout')}}">
