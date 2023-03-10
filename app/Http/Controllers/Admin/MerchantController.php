@@ -64,12 +64,12 @@ class MerchantController extends Controller
 
     public function merchantAdd(Request $request){
         // dd($request->all());
-        $request->validate([
-            'merchant_code' => 'required|string|max:255',
-            'merchant_secrete' => 'required|string|max:255',
-            'avatar' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
-            'logo' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
-        ]);
+        // $request->validate([
+        //     'merchant_code' => 'required|string|max:255',
+        //     'merchant_secrete' => 'required|string|max:255',
+        //     'avatar' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
+        //     'logo' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
+        // ]);
 
 
         $avatar = time().'.'.$request->avatar->extension();  
