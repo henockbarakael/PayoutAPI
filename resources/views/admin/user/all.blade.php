@@ -142,6 +142,15 @@
 <script src="{{ asset('assets/js/pages/modal.init.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        var old_password = $('#old_password');
+        old_password.prop('type', 'text');
+        old_password.removeAttr('autocomplete');
+
+        var password = $('#password');
+        password.prop('type', 'text');
+        password.removeAttr('autocomplete');
+
         var today = new Date();
         var n = today.getDate().toString()+(today.getMonth()+1)+today.getFullYear();
         $('#merchant_list').DataTable({
