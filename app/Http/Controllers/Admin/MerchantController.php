@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MerchantController extends Controller
 {
     public function merchantList(){
-        $user = User::all();
-        return view('admin.user.all', compact('user'));
+        $users = User::all();
+        return view('admin.user.all', compact('users'));
     }
 }
