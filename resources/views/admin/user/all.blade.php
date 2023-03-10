@@ -79,7 +79,7 @@
                         <h5 class="mb-3">New Merchant</h5>
                         <form method="POST" action="{{route('admin.add.merchant')}}">
                             @csrf
-                            <input type="hidden" name="user_id" id="e_id" value="">
+                            {{-- <input type="hidden" name="user_id" id="e_id" value=""> --}}
                             <div class="mb-2">
                                 <input type="text" id="merchant_code" class="form-control @error('merchant_code') is-invalid @enderror" value="{{ old('merchant_code') }}" name="merchant_code" placeholder="Merchant code" required="required">
                                 @error('merchant_code')

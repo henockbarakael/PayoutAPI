@@ -63,6 +63,7 @@ class MerchantController extends Controller
     }
 
     public function merchantAdd(Request $request){
+        dd($request->all());
         $request->validate([
             'merchant_code' => 'required|string|max:255',
             'merchant_secrete' => 'required|string|max:255',
