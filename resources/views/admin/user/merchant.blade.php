@@ -4,6 +4,7 @@
 @section('page-inner','Merchant List')
 @section('content')
 @include('sweetalert::alert')
+{!! Toastr::message() !!}
 <div class="page-content">
     <div class="container-fluid">
 
