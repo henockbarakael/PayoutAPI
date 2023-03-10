@@ -61,22 +61,24 @@
             </div>
         </div>
         <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body text-center p-5">
-                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:120px;height:120px">
-                        </lord-icon>
-
-                        <div class="mt-4">
-                            <h4 class="mb-3">You've made it!</h4>
-                            <p class="text-muted mb-4"> The transfer was not successfully received by us. the email of the recipient wasn't correct.</p>
-                            <div class="hstack gap-2 justify-content-center">
-                                <a href="javascript:void(0);" class="btn btn-link shadow-none link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                <a href="javascript:void(0);" class="btn btn-success">Completed</a>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 overflow-hidden">
+                    <div class="modal-body p-5">
+                        <h5 class="mb-3">Login with Email</h5>
+                        <form>
+                            <div class="mb-2">
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email/username">
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password">
+                                <div class="mt-1 text-end">
+                                    <a href="auth-pass-reset-basic.html">Forgot password ?</a>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
                     </div>
-                </div>
+                </div><!-- /.modal-content -->
             </div>
         </div>
         <div class="modal fade" id="deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
