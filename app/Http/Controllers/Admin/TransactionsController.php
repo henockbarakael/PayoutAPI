@@ -8,9 +8,11 @@ use App\Http\Controllers\verifyNumberController;
 use App\Imports\PayoutsImport;
 use App\Imports\PayoutTestsImport;
 use App\Imports\ValidateCsvFile;
+use App\Models\MobileMoney;
 use App\Models\Payout;
 use App\Models\payout_test;
 use App\Models\Transaction;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Exception;
@@ -42,102 +44,60 @@ class TransactionsController extends Controller
     }
 
     public function payout_logs(){
-        $logs = DB::table('payout_logs')->where('userid', Auth::user()->id)->orderBy('id','desc')->get();
+        $logs = DB::table('mobile_money')->where('user_id', Auth::user()->id)->orderBy('id','desc')->get();
         return view('admin.payout.logs', compact('logs'));
     }
 
+    public function excel() {
+        $length = 5;
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/#_&';
+        $charactersLength = strlen($characters);
+        $randomString ="";
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
     public function process_payout(Request $request){
-        
+
         $validator = Validator::make($request->all(), [
-            'customFile' => 'required|mimes:csv,xlsx',
+            'customFile' => 'required',
             'no_transaction' => 'required|string|max:255',
-        ],[
-            'no_transaction.required' => 'The number of transaction is required',
-            'customFile.required' => 'You must select a file',
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'error' => $validator->errors()->all(),
             ]);
         }
+
         $file = $request->file('customFile');
         $no_trx = $request->no_transaction;
 
-        if ($file) {
-            $filename = $file->getClientOriginalName();
-            // dd($filename);
-            $extension = $file->getClientOriginalExtension(); //Get extension of uploaded file
-            $tempPath = $file->getRealPath();
-            $fileSize = $file->getSize(); //Get size of uploaded file in bytes
-            //Check for file extension and size
-            $this->checkUploadedFileProperties($extension, $fileSize);
-            //Where uploaded file will be stored on the server 
-            $location = 'uploads'; //Created an "uploads" folder for that
-            // Upload file
-            $file->move($location, $filename);
-            // In case the uploaded file path is to be stored in the database 
-            $filepath = public_path($location . "/" . $filename);
-            // Reading file
-            $file = fopen($filepath, "r");
-            $importData_arr = array(); // Read through the file and store the contents as an array
-            $i = 0;
-            //Read the contents of the uploaded file 
-            while (($filedata = fgetcsv($file, 1000000, ",")) !== FALSE) {
-  
-                $num = count($filedata);
+        $path = $request->file('customFile')->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+        $totalRows = count($data);
 
-                if($num != $no_trx){
-                    return response()->json([
-                        'success' => false,
-                        'message' => "Only ".$num." records have been uploaded out of a total of ".$no_trx." indicated. Please retry again."
-                    ]); 
-                }
-                // dd($num);
-                // Skip first row (Remove below comment if you want to skip the first row)
-                // if ($i == 0) {
-                //     $i++;
-                //     continue;
-                // }
-                for ($c = 0; $c < $num; $c++) {
-                    $importData_arr[$i][] = $filedata[$c];
-                }
-                $i++;
-            }
-            fclose($file); //Close after reading
-            $j = 0;
-            foreach ($importData_arr as $importData) {
-                // $name = $importData[1]; //Get user names
-                // $email = $importData[3]; //Get the user emails
-                $j++;
-                try {
-                    DB::beginTransaction();
-                    Payout::create([
-                        'credit_account' => $importData[0],
-                        'amount' => $importData[1],
-                        'currency' => $importData[2],
-                        'status' => "Pending",
-                        'userid' => Auth::user()->id,
-                    ]);
-                    //Send Email
-                    // $this->sendEmail($email, $name);
-                    DB::commit();
-                } 
-                catch (\Exception $e) {
-                    //throw $th;
-                    DB::rollBack();
-                }
-            }
+        if ($totalRows != $no_trx) {
+            return response()->json([
+                'success' => false,
+                'message' => $totalRows." records have been uploaded out of a total of ".$no_trx." indicated. Please upload again!"
+            ]); 
+        }
+
+        else {
+            $import = new PayoutsImport;
+            Excel::import($import, $file);
+            // $rowCount = $import->getRowCount();
             return response()->json([
                 'success' => true,
-                'message' => "$j records successfully uploaded"
+                'message' => "$totalRows records successfully uploaded"
             ]);
-        } 
-        else {
-            //no file was uploaded
-            throw new Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);
         }
+
     }
+
     public function checkUploadedFileProperties($extension, $fileSize){
         $valid_extension = array("csv", "xlsx"); //Only want csv and excel files
         $maxFileSize = 2097152; // Uploaded file size limit is 2mb
@@ -153,57 +113,6 @@ class TransactionsController extends Controller
             throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
         }
     }
-    // public function sendEmail($email, $name){
-    //     $data = array(
-    //     'email' => $email,
-    //     'name' => $name,
-    //     'subject' => 'Welcome Message',
-    //     );
-    //     Mail::send('welcomeEmail', $data, function ($message) use ($data) {
-    //     $message->from('welcome@myapp.com');
-    //     $message->to($data['email']);
-    //     $message->subject($data['subject']);
-    //     });
-    // }
-        
-
-
-    // public function process_payout(Request $request){
-
-    //     $validator = Validator::make($request->all(), [
-    //         // 'file' => 'required|mimes:csv,txt,xlsx,xls',
-    //         'no_transaction' => 'required|string|max:255',
-    //     ]);
-    
-  
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'error' => true,
-    //             // 'file' => $validator->errors()->first('file'),
-    //             'no_transaction' => $validator->errors()->first('no_transaction'),
-    //         ]);
-    //     }
-    //     // $request->validate([
-    //     //     'file' => 'required|mimes:csv,txt,xlsx,xls',
-    //     //     'no_transaction' => 'required|string|max:255',
-    //     // ]);
-
-    //     $file = $request->file('file');
-
-    //     // Excel::import(new UsersImport, $request->file);
-
-    //     $import = new PayoutsImport;
-    //     $import->import($file);
-    //     dd('Row count: ' . $import->getRowCount()); 
-
-    //     // if ($import->failures()->isNotEmpty()) {
-    //     //     return back()->withFailures($import->failures());
-    //     // }
-
-    //     Toastr::success("Records successful imported!",'Success');
-    //     return back()->withStatus('Import in queue, we will send notification after import finished.');
-
-    // }
 
     public function submit_checked(Request $request){
         $count = count($request->input('checked'));
@@ -223,7 +132,7 @@ class TransactionsController extends Controller
     }
 
     public function merchant_ref($prefix) {
-        $length = 8;
+        $length = 13;
         $characters = '0123456789';
         $charactersLength = strlen($characters);
         $randomString = $prefix;
@@ -237,7 +146,7 @@ class TransactionsController extends Controller
         $convert = explode(",",$request->ids);
         $rows = Payout::whereIn('id', $convert)->get();
         
-        $prefix = "BAP";
+     
         foreach($rows as $idx => $row) {
 
             $ids = $row['id'];
@@ -246,8 +155,6 @@ class TransactionsController extends Controller
             $currency = $row['currency'];
 
             $operator = $this->vendor($customer_details);
-
-            
 
             if ($operator == null) {
                 $data = [
@@ -268,23 +175,23 @@ class TransactionsController extends Controller
 
                 $url = 'https://paydrc.gofreshbakery.net/api/v5/';
 
+                $merchant_info = User::where('id', Auth::user()->id)->first();
+           
                 $curl_post_data = [
-                    "merchant_id" => "jZxp9#CeEQRcX%LVb",
-                    "merchant_secrete"=> "jzxuL5fZ0DqCUQFMKb",
+                    "merchant_id" => $merchant_info->merchant_id,
+                    "merchant_secrete"=> $merchant_info->merchant_secrete,
                     "action"=> "credit",
                     "method" => $operator,
                     "amount" => $amount,
                     "currency" => $currency,
                     "customer_number" => $customer_details,
-                    "firstname" =>"prymo",
-                    "lastname" => "bulk",
-                    "email" => "prymo@gmail.com",
-                    "reference" => $this->merchant_ref($prefix),
-                    "callback_url" => ""
+                    "firstname" =>$merchant_info->firstname,
+                    "lastname" => $merchant_info->lastname,
+                    "email" => $merchant_info->email,
+                    "reference" => $row['reference'],
+                    "callback_url" => "https://phplaravel-900404-3126347.cloudwaysapps.com/api/v1/bulkpayment"
                 ];
 
-                dd($curl_post_data);
-    
                 $data = json_encode($curl_post_data);
                 $ch=curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -295,6 +202,7 @@ class TransactionsController extends Controller
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
                 $curl_response = curl_exec($ch);
+                
                 if ($curl_response == false) {
                     $message = "Erreur de connexion! Vérifiez votre connexion internet";
                     Alert::error('Erreur', $message);
@@ -302,46 +210,142 @@ class TransactionsController extends Controller
                 }
                 else{
                     $curl_decoded = json_decode($curl_response,true);
-                    $status = $curl_decoded['Status'];
-                    if ($status == "Success") {
-                        $comment = $curl_decoded['Comment'];
-                        $customer_number = $curl_decoded['Customer_Number'];
-                        $paydrc_reference = $curl_decoded['Transaction_id'];
-                        $reference = $curl_decoded['Reference'];
-                        $created_at = $curl_decoded['Created_At'];
-                        $updated_at = $curl_decoded['Updated_At'];
-                        $save = DB::table('momo_transactions')->insert(
-                        [
-                            'customer_number' => $customer_number,
-                            'amount' => $amount,
-                            'currency' => $currency,
-                            'comment' => $comment,
-                            'action' => "credit",
-                            'method' => $operator,
-                            'status' => $status,
-                            'reference' => $reference,
-                            'transaction_id' => $paydrc_reference,
-                            'user_id' => Auth::user()->id,
-                            'created_at' => $created_at,
-                            'updated_at' => $updated_at
-                        ]
-                        
-                        );
-                        if($save){
-                            $transaction=payout::find($ids);
-                            $transaction->delete();
-                            Toastr::success('Transaction has been successfully submitted!', "Success");
+                    if ($curl_decoded != null) {
+                        $status = $curl_decoded['Status'];
+                        if ($status == "Success") {
+                            $comment = $curl_decoded['Comment'];
+                            $customer_number = $curl_decoded['Customer_Number'];
+                            $paydrc_reference = $curl_decoded['Transaction_id'];
+                            $reference = $curl_decoded['Reference'];
+                            $created_at = $curl_decoded['Created_At'];
+                            $updated_at = $curl_decoded['Updated_At'];
+                            $save = DB::table('mobile_money')->insert(
+                            [
+                                'customer_number' => $customer_number,
+                                'amount' => $amount,
+                                'currency' => $currency,
+                                'comment' => $comment,
+                                'action' => "credit",
+                                'method' => $operator,
+                                'status' => "Pending",
+                                'reference' => $reference,
+                                'transaction_id' => $paydrc_reference,
+                                'user_id' => Auth::user()->id,
+                                'created_at' => $created_at,
+                                'updated_at' => $updated_at
+                            ]
+                            
+                            );
+                            if($save){
+                                $transaction=payout::find($ids);
+                                $transaction->delete(); 
+                                $mobileData = MobileMoney::where('id', $ids)->get();
+                                foreach ($mobileData as $key => $value) {
+                                    $fp = $value["transaction_id"];
+                                    $data = [
+                                        "merchant_id"=>$merchant_info->merchant_id,
+                                        "merchant_secrete"=>$merchant_info->merchant_secrete,
+                                        "action"=>"verify",
+                                        "reference"=>$fp
+                                    ];
+                                    $data = json_encode($data);
+                                    $ch=curl_init();
+                                    curl_setopt($ch, CURLOPT_URL, $url);
+                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+                                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                                    curl_setopt($ch, CURLOPT_POST, true);
+                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+                                    $curl_response = curl_exec($ch);
+                                    
+                                    if ($curl_response == false) {
+                                        $message = "Erreur de connexion! Vérifiez votre connexion internet";
+                                        Alert::error('Erreur', $message);
+                                        return back();
+                                    }
+                                    else{
+                                        $response = json_decode($curl_response,true);
+                                        $update = [
+                                            'telco_reference' => $response["Financial_Institution_id"],
+                                            'status' => $response["Trans_Status"],
+                                            'status_description' => $response["Trans_Status_Description"],
+                                            'updated_at' => $response["Updated_at"]
+                                        ];
+
+                                        MobileMoney::where('transaction_id',$fp)->update($update);
+                                    }
+                                }
+                                
+                                
+                                Toastr::success('Transaction has been successfully submitted!', "Success");
+                            }
+                            else{
+                                Toastr::error('Transaction envoyée avec succès :)','Error');
+                                return redirect()->back();
+                            }
+                            
                         }
-                        else{
-                            Toastr::error('Transaction envoyée avec succès :)','Error');
-                            return redirect()->back();
+                        else {
+                            Toastr::error($curl_decoded['Comment'],'Error');
+                            return redirect()->route('caissier-transfert-emala-mobile-credit');
                         }
-                        
                     }
                     else {
-                        Toastr::error($curl_decoded['Comment'],'Error');
-                        return redirect()->route('caissier-transfert-emala-mobile-credit');
+                        $fp = $row['reference'];
+                        $data = [
+                            "merchant_id"=>$merchant_info->merchant_id,
+                            "merchant_secrete"=>$merchant_info->merchant_secrete,
+                            "action"=>"verify",
+                            "reference"=>$fp
+                        ];
+                        // $verify = Http::post('https://paydrc.gofreshbakery.net/api/v5/', $data);
+                        // $response = $verify->json();
+                        $urls = "https://paydrc.gofreshbakery.net/api/v5/";
+                        $data = json_encode($data);
+                        $ch=curl_init();
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+                        $curl_response = curl_exec($ch);
+                        
+                        if ($curl_response == false) {
+                            $message = "Erreur de connexion! Vérifiez votre connexion internet";
+                            Alert::error('Erreur', $message);
+                            return back();
+                        }
+                        else{
+                            $response = json_decode($curl_response,true);
+                            $update = [
+                                'telco_reference' => $response["Financial_Institution_id"],
+                                'status' => $response["Trans_Status"],
+                                'status_description' => $response["Trans_Status_Description"],
+                                'updated_at' => $response["Updated_at"],
+                                'customer_number' => $response["Customer_Details"],
+                                'amount' => $response["Amount"],
+                                'currency' => $response["Currency"],
+                                'comment' => $response["Comment"],
+                                'action' => "credit",
+                                'method' => $response["Method"],
+                                'reference' => $response["Reference"],
+                                'transaction_id' => $response["Transaction_id"],
+                                'user_id' => Auth::user()->id,
+                                'created_at' => $response["Created_at"]
+                            ];
+    
+                            $create = MobileMoney::where('transaction_id',$fp)->updateOrCreate($update);
+                            if ($create) {
+                                $transaction=payout::find($ids);
+                                $transaction->delete(); 
+                            }
+                        }
+                        
                     }
+                    
                 }
 
             }
