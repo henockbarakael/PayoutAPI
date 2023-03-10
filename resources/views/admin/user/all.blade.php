@@ -48,8 +48,8 @@
                                     <td>{{ $item->user_status }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-soft-info"><i class="ri-pencil-fill align-bottom text-muted"></i></a>
-                                        <a class="btn btn-sm btn-soft-danger remove-item-btn"><i class="ri-delete-bin-fill align-bottom text-muted"></i></a>
+                                        <a class="btn btn-sm btn-soft-info" data-bs-toggle="modal" data-bs-target="#editUser"><i class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                        <a class="btn btn-sm btn-soft-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="ri-delete-bin-fill align-bottom text-muted"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -60,7 +60,44 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center p-5">
+                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:120px;height:120px">
+                        </lord-icon>
 
+                        <div class="mt-4">
+                            <h4 class="mb-3">You've made it!</h4>
+                            <p class="text-muted mb-4"> The transfer was not successfully received by us. the email of the recipient wasn't correct.</p>
+                            <div class="hstack gap-2 justify-content-center">
+                                <a href="javascript:void(0);" class="btn btn-link shadow-none link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                                <a href="javascript:void(0);" class="btn btn-success">Completed</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center p-5">
+                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:120px;height:120px">
+                        </lord-icon>
+
+                        <div class="mt-4">
+                            <h4 class="mb-3">You've made it!</h4>
+                            <p class="text-muted mb-4"> The transfer was not successfully received by us. the email of the recipient wasn't correct.</p>
+                            <div class="hstack gap-2 justify-content-center">
+                                <a href="javascript:void(0);" class="btn btn-link shadow-none link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                                <a href="javascript:void(0);" class="btn btn-success">Completed</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- container-fluid -->
@@ -88,6 +125,7 @@
 <script src="{{ asset('assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
 <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('assets/js/pages/datatables.init.js')}}"></script>
+<script src="{{ asset('assets/js/pages/modal.init.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var today = new Date();
