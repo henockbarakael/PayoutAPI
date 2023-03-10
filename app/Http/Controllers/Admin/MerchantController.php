@@ -44,7 +44,7 @@ class MerchantController extends Controller
             ]);
 
             FacadesToastr::success('Password changed successfully!','Success');
-            return redirect()->back();
+            return redirect()->route('admin.merchant.list');
 
             // return response()->json(['success' => true,'message' => "Password changed successfully!"]);
     }
