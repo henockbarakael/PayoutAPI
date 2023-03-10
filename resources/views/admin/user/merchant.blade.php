@@ -15,37 +15,39 @@
                 <div class="card">
                     <div class="card-body">
                         {{-- <p class="text-muted">Use <code>&lt;select&gt;</code> attribute with numerous options to show value with choice's option.</p> --}}
-                        <div class="live-preview">
-                            <div class="row">
+                        
                                 <form action="{{route('admin.merchant.add.user')}}" method="POST">
                                     @csrf
-                                    <div class="col-lg-12">
-                                        <select name="institution_name" class="form-select mb-3" aria-label="Default select example">
-                                            <option selected disabled>Institution </option>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->institution_name }}">{{ $user->institution_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input autocomplete="off" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname"  placeholder="Firstname" required>
-                                        @error('firstname')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ __('Firstname is required') }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input autocomplete="off" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname"  placeholder="Lastname" required>
-                                        @error('lastname')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ __('Lastname is required') }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="live-preview">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <select name="institution_name" class="form-select mb-3" aria-label="Default select example">
+                                                    <option selected disabled>Institution </option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->institution_name }}">{{ $user->institution_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input autocomplete="off" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname"  placeholder="Firstname" required>
+                                                @error('firstname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ __('Firstname is required') }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input autocomplete="off" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname"  placeholder="Lastname" required>
+                                                @error('lastname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ __('Lastname is required') }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
+                           
                     </div>
                 </div>
             </div>
