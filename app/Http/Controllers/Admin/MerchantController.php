@@ -16,12 +16,11 @@ class MerchantController extends Controller
 {
     public function merchantList(){
         $users = User::all();
-        return view('admin.user.all', compact('users'));
+        return view('admin.merchant.all', compact('users'));
     }
 
     public function merchantUser(){
         $users = DB::table('users')->select('institution_name')->get();
-        dd($users);
         return view('admin.user.all', compact('users'));
     }
 
