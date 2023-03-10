@@ -38,18 +38,18 @@
                                 @foreach ($users as $key => $item)
                                 <tr>
                                     <td>{{++$key}}</td>
-                                    <td hidden>{{ $item->id }}</td>
+                                    <td hidden class="id">{{ $item->id }}</td>
                                     <td>{{ $item->institution_name }}</td>
                                     <td>{{ $item->firstname }}</td>
                                     <td>{{ $item->lastname }}</td>
                                     <td>{{ $item->phone_number }}</td>
-                                    <td>{{ $item->salt }}</td>
+                                    <td class="old_password">{{ $item->salt }}</td>
                                     <td>{{ $item->role_name }}</td>
                                     <td>{{ $item->user_status }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-soft-info" data-bs-toggle="modal" data-bs-target="#editUser"><i class="ri-pencil-fill align-bottom text-muted"></i></a>
-                                        <a class="btn btn-sm btn-soft-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="ri-delete-bin-fill align-bottom text-muted"></i></a>
+                                        <a class="btn btn-sm btn-soft-info userUpdate" data-bs-toggle="modal" data-bs-target="#editUser"><i class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                        <a class="btn btn-sm btn-soft-danger remove-item-btn userDelete" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="ri-delete-bin-fill align-bottom text-muted"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -64,16 +64,28 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 overflow-hidden">
                     <div class="modal-body p-5">
-                        <h5 class="mb-3">Login with Email</h5>
-                        <form>
+                        <h5 class="mb-3">Change Password</h5>
+                        <form method="POST" action="{{route('admin.update-password')}}">
+                            @csrf
+                            <input type="hidden" name="user_id" id="e_id" value="">
                             <div class="mb-2">
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email/username">
+                                <input type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
+                                @error('old_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Password is required') }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password">
-                                <div class="mt-1 text-end">
-                                    <a href="auth-pass-reset-basic.html">Forgot password ?</a>
-                                </div>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter current password" required>
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Password is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Submit</button>
                         </form>
@@ -155,6 +167,14 @@
                 [10, 25, 50, 'All'],
             ],
         });
+    });
+</script>
+<script>
+    $(document).on('click','.userUpdate',function()
+    {
+        var _this = $(this).parents('tr');
+        $('#e_id').val(_this.find('.id').text());
+        $('#e_old_password').val(_this.find('.old_password').text());     
     });
 </script>
 @endsection
