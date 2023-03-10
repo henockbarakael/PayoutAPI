@@ -29,7 +29,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-6">
-                                                <input autocomplete="off" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder="email" required>
+                                                <input autocomplete="off" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder="E-mail" required>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ __('Email is required') }}</strong>
