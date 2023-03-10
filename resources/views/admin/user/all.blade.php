@@ -1,7 +1,7 @@
 @extends('layouts.master')
-@section('title','Formulaire - User')
-@section('page','User')
-@section('page-inner','Ajouter un user')
+@section('title','Merchant List')
+@section('page','Merchant')
+@section('page-inner','Merchant List')
 @section('content')
 @include('sweetalert::alert')
 <div class="page-content">
@@ -15,7 +15,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Liste des utilisateurs</h5>
+                        <h5 class="card-title mb-0">All Merchant</h5>
                     </div>
                     <div class="card-body">
                         <table class="table nowrap align-middle" id="merchant_list" style="width:100%">
