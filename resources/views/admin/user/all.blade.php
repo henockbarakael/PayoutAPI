@@ -69,7 +69,7 @@
                             @csrf
                             <input type="hidden" name="user_id" id="e_id" value="">
                             <div class="mb-2">
-                                <input type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
+                                <input autocomplete="off" type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password" id="old_password" value="" placeholder="Enter current password" required>
                                 @error('old_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
@@ -77,7 +77,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter current password" required>
+                                <input autocomplete="off" type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter current password" required>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
@@ -85,7 +85,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
+                                <input autocomplete="off" type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Submit</button>
                         </form>

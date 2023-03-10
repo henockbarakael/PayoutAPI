@@ -16,7 +16,7 @@
                             @csrf
                             <div class="form-group">
                                 <div class="fxt-transformY-50 fxt-transition-delay-1">
-                                    <input type="text" id="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" name="firstname" placeholder="Username" required="required">
+                                    <input autocomplete="off" type="text" id="firstname" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}" name="firstname" placeholder="Username" required="required">
                                     @error('firstname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ __('firstname is required') }}</strong>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="fxt-transformY-50 fxt-transition-delay-2">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" placeholder="********" required="required">
+                                    <input autocomplete="off" id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" placeholder="********" required="required">
                                     <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i>
                                     
                                 </div>
