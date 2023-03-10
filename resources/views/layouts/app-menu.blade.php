@@ -46,10 +46,10 @@
                         <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link" data-key="t-sweet-alerts">Merchant List</a>
+                                    <a href="{{route('admin.merchant.list')}}" class="nav-link" data-key="t-sweet-alerts">Merchant List</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link" data-key="t-nestable-list">Merchant User</a>
+                                    <a href="{{route('admin.merchant.user.list')}}" class="nav-link" data-key="t-nestable-list">Merchant User</a>
                                 </li>
                             </ul>
                         </div>

@@ -31,7 +31,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['admin','auth','PreventBackHisto
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.dashboard');
 
     Route::get('merchant-list', [App\Http\Controllers\Admin\MerchantController::class, 'merchantList'])->name('admin.merchant.list');
-    Route::get('merchant-user', [App\Http\Controllers\Admin\MerchantController::class, 'merchantUser'])->name('admin.merchant.use.list');
+    Route::get('merchant-user', [App\Http\Controllers\Admin\MerchantController::class, 'merchantUser'])->name('admin.merchant.user.list');
 
     Route::get('bulk-payment', [App\Http\Controllers\Admin\TransactionsController::class, 'payout'])->name('admin.payout');
     Route::post('bulk-payment', [App\Http\Controllers\Admin\TransactionsController::class, 'process_payout'])->name('admin.import');
