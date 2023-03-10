@@ -18,6 +18,12 @@ class MerchantController extends Controller
         return view('admin.user.all', compact('users'));
     }
 
+    public function merchantUser(){
+        $users = User::select('institution_name')->get();
+        dd($users);
+        return view('admin.user.all', compact('users'));
+    }
+
     public function updatePassword(Request $request)
     {
             # Validation
