@@ -65,6 +65,7 @@ class MerchantController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'institution_name' => 'required|string',
         ]);
         $users = DB::table('users')->where('institution_name',$request->institution_name)->first();
@@ -82,7 +83,7 @@ class MerchantController extends Controller
             'institution_name' => $users->institution_name,
             'firstname' => $users->firstname,
             'lastname' => $users->lastname,
-            'email' => $users->email,
+            'email' => $request->email,
             'salt'     => $password,
             'niveau'     => $users->niveau,
             'password' => Hash::make($password),
