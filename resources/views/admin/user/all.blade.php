@@ -15,7 +15,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">All Merchant</h5>
+                        {{-- <h5 class="card-title mb-0">All Merchant</h5> --}}
+                        <div class="row g-4 align-items-center">
+                            <div class="col-sm">
+                                <div>
+                                    <h5 class="card-title mb-0">All Merchant</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto">
+                                <div>
+                                    <button class="btn btn-success btn-border btn-sm add-merchant" data-bs-toggle="modal" data-bs-target="#addMerchant">Add Merchant</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table nowrap align-middle" id="merchant_list" style="width:100%">
@@ -58,6 +70,53 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="modal fade" id="addMerchant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 overflow-hidden">
+                    <div class="modal-body p-5">
+                        <h5 class="mb-3">New Merchant</h5>
+                        <form method="POST" action="{{route('admin.add.merchant')}}">
+                            @csrf
+                            <input type="hidden" name="user_id" id="e_id" value="">
+                            <div class="mb-2">
+                                <input type="text" id="merchant_code" class="form-control @error('merchant_code') is-invalid @enderror" value="{{ old('merchant_code') }}" name="merchant_code" placeholder="Merchant code" required="required">
+                                @error('merchant_code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Merchant code is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" id="merchant_secrete" class="form-control @error('merchant_secrete') is-invalid @enderror" value="{{ old('merchant_secrete') }}" name="merchant_secrete" placeholder="Merchant secrete" required="required">
+                                @error('merchant_secrete')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Merchant secrete is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-2">
+                                <input required  class="form-control @error('avatar') is-invalid @enderror" type="file" name="avatar" id="avatar">
+                                @error('avatar')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Avatar is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-2">
+                                <input required  class="form-control @error('logo') is-invalid @enderror" type="file" name="logo" id="logo">
+                                @error('logo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ __('Logo is required') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
             </div>
         </div>
         <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\generateIDController;
 use App\Models\User;
-use Brian2694\Toastr\Facades\Toastr as FacadesToastr;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class MerchantController extends Controller
@@ -39,7 +40,7 @@ class MerchantController extends Controller
 
             #Match The Old Password
             if(!Hash::check($request->old_password, auth()->user()->password)){
-                FacadesToastr::error('Old Password Doesn\'t match!','Error');
+                Toastr::error('Old Password Doesn\'t match!','Error');
             }
 
             #Update the new Password
@@ -49,7 +50,7 @@ class MerchantController extends Controller
                 'updated_at' => $this->todayDate()
             ]);
 
-            FacadesToastr::success('Password changed successfully!','Success');
+            Toastr::success('Password changed successfully!','Success');
             return redirect()->route('admin.merchant.list');
 
             // return response()->json(['success' => true,'message' => "Password changed successfully!"]);
@@ -59,6 +60,51 @@ class MerchantController extends Controller
         Carbon::setLocale('fr');
         $todayDate = Carbon::now()->format('Y-m-d H:i:s');
         return $todayDate;
+    }
+
+    public function merchantAdd(Request $request){
+        $request->validate([
+            'merchant_code' => 'required|string|max:255',
+            'merchant_secrete' => 'required|string|max:255',
+            'avatar' => 'required|string',
+            'logo' => 'required|string',
+        ]);
+
+        $date       = Carbon::now();
+        $todayDate  = $date->toDayDateTimeString();
+
+        $generateID = new generateIDController;
+        $password = $generateID->password();
+
+        $merchant_code = $request->merchant_code;
+
+        $response = Http::get('http://206.189.25.253/services/paydrc/merchant/<merchant_code>?', ["merchant_code"=>$merchant_code]);
+        $result = $response->json();
+
+        User::create([
+            'merchant_id' => $result[0]['merchant_id'],
+            'merchant_code' => $request->merchant_code,
+            'merchant_secrete' => $request->merchant_secrete,
+            'institution_code' => $result[0]['institution_code'],
+            'institution_name' => $result[0]['institution_name'],
+            'firstname' => $result[0]['firstname'],
+            'lastname' => $result[0]['lastname'],
+            'email' => $result[0]['email'],
+            'salt'     => $password,
+            'niveau'     => "1",
+            'password' => Hash::make($password),
+            'avatar'   => $request->avatar,
+            'logo'   => $request->logo,
+            'user_status' => 'Hors ligne',
+            'status' => 'Active',
+            'role_name' => 'Merchant',
+            'created_at'   => $todayDate,
+            'updated_at'   => $todayDate,
+        ]);
+
+        Toastr::success('Create new account successfully :)','Success');
+        return redirect()->route('admin.merchant.list');
+
     }
 
     public function addUser(Request $request){
@@ -96,7 +142,7 @@ class MerchantController extends Controller
             'created_at'   => $todayDate,
             'updated_at'   => $todayDate,
         ]);
-        FacadesToastr::success('Create new account successfully :)','Success');
+        Toastr::success('Create new account successfully :)','Success');
         return redirect()->route('admin.merchant.user.list');
 
     }
