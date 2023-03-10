@@ -76,6 +76,8 @@ class MerchantController extends Controller
         $avatar = time().'.'.$request->avatar->extension();  
         $logo = time().'.'.$request->logo->extension();  
 
+        dd($avatar);
+
         $request->avatar->move(public_path('assets/images/users'), $avatar);
         $request->logo->move(public_path('assets/images'), $logo);
 
