@@ -81,6 +81,8 @@ class MerchantController extends Controller
             'merchant_secrete' => $users->merchant_secrete,
             'institution_code' => $users->institution_code,
             'institution_name' => $users->institution_name,
+            'logo' => $users->logo,
+            'avatar' => $users->avatar,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
