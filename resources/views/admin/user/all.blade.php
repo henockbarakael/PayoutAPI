@@ -77,7 +77,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input autocomplete="new_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter new password" required>
+                                <input autocomplete="new_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  placeholder="Enter new password" required>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ __('Password is required') }}</strong>
@@ -143,13 +143,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var old_password = $('#old_password');
-        old_password.prop('type', 'text');
-        old_password.removeAttr('autocomplete');
+        // var old_password = $('#old_password');
+        // old_password.prop('type', 'text');
+        // old_password.removeAttr('autocomplete');
 
-        var password = $('#password');
-        password.prop('type', 'text');
-        password.removeAttr('autocomplete');
+        // var password = $('#password');
+        // password.prop('type', 'text');
+        // password.removeAttr('autocomplete');
 
         var today = new Date();
         var n = today.getDate().toString()+(today.getMonth()+1)+today.getFullYear();
