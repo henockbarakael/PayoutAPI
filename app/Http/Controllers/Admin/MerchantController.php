@@ -66,9 +66,16 @@ class MerchantController extends Controller
         $request->validate([
             'merchant_code' => 'required|string|max:255',
             'merchant_secrete' => 'required|string|max:255',
-            'avatar' => 'required|string',
-            'logo' => 'required|string',
+            'avatar' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
+            'logo' => 'required|mimes:png,jpg,jpeg,svg|max:2048',
         ]);
+
+
+        $avatar = time().'.'.$request->file->extension();  
+        $logo = time().'.'.$request->file->extension();  
+
+        $request->avatar->move(public_path('assets/images/users'), $avatar);
+        $request->logo->move(public_path('assets/images'), $logo);
 
         $date       = Carbon::now();
         $todayDate  = $date->toDayDateTimeString();
