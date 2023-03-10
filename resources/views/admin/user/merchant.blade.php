@@ -44,7 +44,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 mt-4">
                                                 <button type="submit" id="file-upload" class="btn btn-primary w-100">Submit</button>
                                             </div>
                                         </div>
